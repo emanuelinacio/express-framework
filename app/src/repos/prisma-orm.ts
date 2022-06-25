@@ -3,7 +3,7 @@ import User, { IUser } from '@models/user-model';
 
 const prisma = new PrismaClient();
 
-const getAllUsers = async function () : Promise<IUser[]>
+const getAllUsers = async function () : Promise<IUser[] | null>
 {
     const users = await prisma.users.findMany();
     const usersArray = new Array();
@@ -24,7 +24,7 @@ const getAllUsers = async function () : Promise<IUser[]>
     return usersArray;
 }
 
-const getOneUser = async function ( id: number ) : Promise<IUser>
+const getOneUser = async function ( id: number ) : Promise<IUser | null>
 {
     const user = await prisma.users.findUnique({
         where: {
@@ -32,18 +32,18 @@ const getOneUser = async function ( id: number ) : Promise<IUser>
         },
     });
 
-    if ( user == null ) {
-        return User.new( 0, '', '', '', '', '' );
+    if ( user !== null ) {
+        return User.new(
+            user.idusers !== null ? user.idusers : 0,
+            user.name !== null ? user.name : '',
+            user.email !== null ? user.email : '',
+            user.last_name !== null ? user.last_name : '',
+            user.login !== null ? user.login : '',
+            user.pass !== null ? user.pass : '',
+        );
     }
 
-    return User.new(
-        user.idusers !== null ? user.idusers : 0,
-        user.name !== null ? user.name : '',
-        user.email !== null ? user.email : '',
-        user.last_name !== null ? user.last_name : '',
-        user.login !== null ? user.login : '',
-        user.pass !== null ? user.pass : '',
-    );
+    return null;
 }
 
 export default {

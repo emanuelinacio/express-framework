@@ -9,7 +9,7 @@ import { UserNotFoundError } from '@shared/errors';
  * 
  * @returns 
  */
-function getAll(): Promise<IUser[]> {
+function getAll(): Promise<IUser[] | null> {
     return userRepo.getAll();
 }
 

@@ -53,7 +53,7 @@ async function persists(idusers: number): Promise<boolean> {
  * 
  * @returns 
  */
-async function getAll(): Promise<IUser[]> {
+async function getAll(): Promise<IUser[] | null> {
 
     const teste = await prisma.getOneUser( 1 );
 
