@@ -1,7 +1,7 @@
 import { IUser } from '@models/user-model';
 import { getRandomInt } from '@shared/functions';
 import orm from './mock-orm';
-
+import prisma from './prisma-orm';
 
 
 /**
@@ -11,12 +11,23 @@ import orm from './mock-orm';
  * @returns 
  */
 async function getOne(email: string): Promise<IUser | null> {
-    const db = await orm.openDb();
+
+    const getUsersQuery = prisma.getAllUsers();
+
+    /*if ( getUsersQuery ) {
+        return getUsersQuery;
+    }*/
+
+    console.log( getUsersQuery );
+
+    //return getUsers = prismaOrm.getUsers();
+
+    /*const db = await orm.openDb();
     for (const user of db.users) {
         if (user.email === email) {
             return user;
         }
-    }
+    }*/
     return null;
 }
 
@@ -26,10 +37,10 @@ async function getOne(email: string): Promise<IUser | null> {
  * 
  * @param id 
  */
-async function persists(id: number): Promise<boolean> {
+async function persists(idusers: number): Promise<boolean> {
     const db = await orm.openDb();
     for (const user of db.users) {
-        if (user.id === id) {
+        if (user.idusers === idusers) {
             return true;
         }
     }
@@ -43,8 +54,12 @@ async function persists(id: number): Promise<boolean> {
  * @returns 
  */
 async function getAll(): Promise<IUser[]> {
-    const db = await orm.openDb();
-    return db.users;
+
+    const teste = await prisma.getOneUser( 1 );
+
+    console.log( teste );
+
+    return await prisma.getAllUsers();
 }
 
 
@@ -56,7 +71,7 @@ async function getAll(): Promise<IUser[]> {
  */
 async function add(user: IUser): Promise<void> {
     const db = await orm.openDb();
-    user.id = getRandomInt();
+    user.idusers = getRandomInt();
     db.users.push(user);
     return orm.saveDb(db);
 }
@@ -71,7 +86,7 @@ async function add(user: IUser): Promise<void> {
 async function update(user: IUser): Promise<void> {
     const db = await orm.openDb();
     for (let i = 0; i < db.users.length; i++) {
-        if (db.users[i].id === user.id) {
+        if (db.users[i].idusers === user.idusers) {
             db.users[i] = user;
             return orm.saveDb(db);
         }

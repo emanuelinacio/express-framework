@@ -1,8 +1,11 @@
 
 // User schema
 export interface IUser {
-    id: number;
+    idusers: number;
     name: string;
+    last_name: string;
+    login: string;
+    pass: string;
     email: string;
 }
 
@@ -12,11 +15,14 @@ export interface IUser {
  * 
  * @returns 
  */
-function getNew(name: string, email: string): IUser {
+function getNew( idusers: number,  name: string, email: string, last_name:string, login:string, pass:string ): IUser {
     return {
-        id: -1,
+        idusers: idusers,
         email,
         name,
+        last_name,
+        login,
+        pass,
     };
 }
 
@@ -29,9 +35,12 @@ function getNew(name: string, email: string): IUser {
  */
 function copy(user: IUser): IUser {
     return {
-        id: user.id,
+        idusers: user.idusers,
         email: user.email,
         name: user.name,
+        last_name: user.last_name,
+        login: user.login,
+        pass: user.pass,
     }
 }
 

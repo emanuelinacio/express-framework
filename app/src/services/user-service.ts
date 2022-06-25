@@ -32,7 +32,7 @@ function addOne(user: IUser): Promise<void> {
  * @returns 
  */
 async function updateOne(user: IUser): Promise<void> {
-    const persists = await userRepo.persists(user.id);
+    const persists = await userRepo.persists(user.idusers);
     if (!persists) {
         throw new UserNotFoundError();
     }
