@@ -1,8 +1,25 @@
 import { IUser } from '@models/user-model';
 import { getRandomInt } from '@shared/functions';
-import orm from './mock-orm';
-import prisma from './prisma-orm';
+import orm from './orm/mock-orm';
+import prisma from './orm/users-orm';
 
+
+/**
+ * Get one user.
+ * 
+ * @param id 
+ * @returns 
+ */
+async function getOne(id: number): Promise<IUser | null> {
+
+    const getUsersQuery = await prisma.getOneUser( 1 );
+
+    if ( getUsersQuery ) {
+        return getUsersQuery;
+    }
+
+    return null;
+}
 
 /**
  * Get one user.
@@ -10,24 +27,14 @@ import prisma from './prisma-orm';
  * @param email 
  * @returns 
  */
-async function getOne(email: string): Promise<IUser | null> {
+ async function getOneByEmail(email: string): Promise<IUser | null> {
 
-    const getUsersQuery = prisma.getAllUsers();
+    const getUsersQuery = await prisma.getUserByEmail( email );
 
-    /*if ( getUsersQuery ) {
+    if ( getUsersQuery ) {
         return getUsersQuery;
-    }*/
+    }
 
-    console.log( getUsersQuery );
-
-    //return getUsers = prismaOrm.getUsers();
-
-    /*const db = await orm.openDb();
-    for (const user of db.users) {
-        if (user.email === email) {
-            return user;
-        }
-    }*/
     return null;
 }
 
@@ -55,11 +62,13 @@ async function persists(idusers: number): Promise<boolean> {
  */
 async function getAll(): Promise<IUser[] | null> {
 
-    const teste = await prisma.getOneUser( 1 );
+    const allUsers = await prisma.getAllUsers();
 
-    console.log( teste );
+    if ( allUsers !== null ) {
+        return allUsers;
+    }
 
-    return await prisma.getAllUsers();
+    return null;
 }
 
 
