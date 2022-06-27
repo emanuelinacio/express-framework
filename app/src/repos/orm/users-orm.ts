@@ -17,6 +17,7 @@ const getAllUsers = async function () : Promise<IUser[] | null>
                 userItem.last_name !== null ? userItem.last_name : '',
                 userItem.login !== null ? userItem.login : '',
                 userItem.password !== null ? userItem.password : '',
+                userItem.store_idstore !== null ? userItem.store_idstore: 0,
             )
         );
     } );
@@ -40,6 +41,7 @@ const getOneUser = async function ( id: number ) : Promise<IUser | null>
             user.last_name !== null ? user.last_name : '',
             user.login !== null ? user.login : '',
             user.password !== null ? user.password : '',
+            user.store_idstore !== null ? user.store_idstore: 0,
         );
     }
 
@@ -62,6 +64,7 @@ const getUserByEmail = async function ( emailSearch: string ) : Promise<IUser | 
             user.last_name !== null ? user.last_name : '',
             user.login !== null ? user.login : '',
             user.password !== null ? user.password : '',
+            user.store_idstore !== null ? user.store_idstore : 0,
         );
     }
 

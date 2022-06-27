@@ -13,6 +13,7 @@ const getAllProductType = async function () : Promise<IProductType[] | null>
             productType.new( 
                 productItem.idproduct_type !== null ? productItem.idproduct_type : 0,
                 productItem.name !== null ? productItem.name : '',
+                productItem.store_idstore !== null ? productItem.store_idstore : 0,
             )
         );
     } );
@@ -32,6 +33,7 @@ const getOneProductType = async function ( id: number ) : Promise<IProductType |
         return productType.new(
             productTypeQuery.idproduct_type !== null ? productTypeQuery.idproduct_type : 0,
             productTypeQuery.name !== null ? productTypeQuery.name : '',
+            productTypeQuery.store_idstore !== null ? productTypeQuery.store_idstore : 0,
         );
     }
 

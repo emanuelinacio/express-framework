@@ -16,6 +16,7 @@ const getAllProduct = async function () : Promise<IProduct[] | null>
                 productItem.description !== null ? productItem.description : '',
                 productItem.price !== null ? productItem.price : 0,
                 productItem.productType_idproduct_type !== null ? productItem.productType_idproduct_type : 0,
+                productItem.store_idstore !== null ? productItem.store_idstore : 0,
             )
         );
     } );
@@ -38,6 +39,8 @@ const getOneProduct = async function ( id: number ) : Promise<IProduct | null>
             productTypeQuery.description !== null ? productTypeQuery.description : '',
             productTypeQuery.price !== null ? productTypeQuery.price : 0,
             productTypeQuery.productType_idproduct_type !== null ? productTypeQuery.productType_idproduct_type : 0,
+            productTypeQuery.store_idstore !== null ? productTypeQuery.store_idstore : 0,
+
         );
     }
 

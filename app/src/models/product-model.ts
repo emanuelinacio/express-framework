@@ -4,7 +4,8 @@ export interface IProduct {
     name: string;
     description: string;
     price: number;
-    productType: number
+    productType: number;
+    store_idstore: number;
 }
 
 
@@ -13,13 +14,14 @@ export interface IProduct {
  * 
  * @returns 
  */
-function getNew( idproduct: number,  name: string, description: string, price: number, productType: number ): IProduct {
+function getNew( idproduct: number,  name: string, description: string, price: number, productType: number, store_idstore:number ): IProduct {
     return {
         idproduct: idproduct,
         name: name,
         description: description,
         price: price,
         productType: productType,
+        store_idstore: store_idstore
     };
 }
 
@@ -37,6 +39,7 @@ function copy(productType: IProduct): IProduct {
         description: productType.description,
         price: productType.price,
         productType: productType.productType,
+        store_idstore: productType.store_idstore
     }
 }
 
