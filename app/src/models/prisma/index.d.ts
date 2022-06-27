@@ -23,6 +23,8 @@ export type product = {
   name: string | null
   price: number | null
   store_idstore: number
+  productType_idproduct_type: number
+  productType_store_idstore: number
 }
 
 /**
@@ -898,6 +900,55 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ProductTypeCountOutputType
+   */
+
+
+  export type ProductTypeCountOutputType = {
+    product: number
+  }
+
+  export type ProductTypeCountOutputTypeSelect = {
+    product?: boolean
+  }
+
+  export type ProductTypeCountOutputTypeGetPayload<
+    S extends boolean | null | undefined | ProductTypeCountOutputTypeArgs,
+    U = keyof S
+      > = S extends true
+        ? ProductTypeCountOutputType
+    : S extends undefined
+    ? never
+    : S extends ProductTypeCountOutputTypeArgs
+    ?'include' extends U
+    ? ProductTypeCountOutputType 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]:
+    P extends keyof ProductTypeCountOutputType ? ProductTypeCountOutputType[P] : never
+  } 
+    : ProductTypeCountOutputType
+  : ProductTypeCountOutputType
+
+
+
+
+  // Custom InputTypes
+
+  /**
+   * ProductTypeCountOutputType without action
+   */
+  export type ProductTypeCountOutputTypeArgs = {
+    /**
+     * Select specific fields to fetch from the ProductTypeCountOutputType
+     * 
+    **/
+    select?: ProductTypeCountOutputTypeSelect | null
+  }
+
+
+
+  /**
    * Count Type StoreCountOutputType
    */
 
@@ -973,12 +1024,16 @@ export namespace Prisma {
     idproduct: number | null
     price: number | null
     store_idstore: number | null
+    productType_idproduct_type: number | null
+    productType_store_idstore: number | null
   }
 
   export type ProductSumAggregateOutputType = {
     idproduct: number | null
     price: number | null
     store_idstore: number | null
+    productType_idproduct_type: number | null
+    productType_store_idstore: number | null
   }
 
   export type ProductMinAggregateOutputType = {
@@ -988,6 +1043,8 @@ export namespace Prisma {
     name: string | null
     price: number | null
     store_idstore: number | null
+    productType_idproduct_type: number | null
+    productType_store_idstore: number | null
   }
 
   export type ProductMaxAggregateOutputType = {
@@ -997,6 +1054,8 @@ export namespace Prisma {
     name: string | null
     price: number | null
     store_idstore: number | null
+    productType_idproduct_type: number | null
+    productType_store_idstore: number | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -1006,6 +1065,8 @@ export namespace Prisma {
     name: number
     price: number
     store_idstore: number
+    productType_idproduct_type: number
+    productType_store_idstore: number
     _all: number
   }
 
@@ -1014,12 +1075,16 @@ export namespace Prisma {
     idproduct?: true
     price?: true
     store_idstore?: true
+    productType_idproduct_type?: true
+    productType_store_idstore?: true
   }
 
   export type ProductSumAggregateInputType = {
     idproduct?: true
     price?: true
     store_idstore?: true
+    productType_idproduct_type?: true
+    productType_store_idstore?: true
   }
 
   export type ProductMinAggregateInputType = {
@@ -1029,6 +1094,8 @@ export namespace Prisma {
     name?: true
     price?: true
     store_idstore?: true
+    productType_idproduct_type?: true
+    productType_store_idstore?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -1038,6 +1105,8 @@ export namespace Prisma {
     name?: true
     price?: true
     store_idstore?: true
+    productType_idproduct_type?: true
+    productType_store_idstore?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -1047,6 +1116,8 @@ export namespace Prisma {
     name?: true
     price?: true
     store_idstore?: true
+    productType_idproduct_type?: true
+    productType_store_idstore?: true
     _all?: true
   }
 
@@ -1149,6 +1220,8 @@ export namespace Prisma {
     name: string | null
     price: number | null
     store_idstore: number
+    productType_idproduct_type: number
+    productType_store_idstore: number
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -1177,12 +1250,16 @@ export namespace Prisma {
     name?: boolean
     price?: boolean
     store_idstore?: boolean
+    productType_idproduct_type?: boolean
+    productType_store_idstore?: boolean
+    productType?: boolean | productTypeArgs
     store?: boolean | storeArgs
     promotion?: boolean | promotionFindManyArgs
     _count?: boolean | ProductCountOutputTypeArgs
   }
 
   export type productInclude = {
+    productType?: boolean | productTypeArgs
     store?: boolean | storeArgs
     promotion?: boolean | promotionFindManyArgs
     _count?: boolean | ProductCountOutputTypeArgs
@@ -1199,6 +1276,7 @@ export namespace Prisma {
     ?'include' extends U
     ? product  & {
     [P in TrueKeys<S['include']>]:
+        P extends 'productType' ? productTypeGetPayload<S['include'][P]> :
         P extends 'store' ? storeGetPayload<S['include'][P]> :
         P extends 'promotion' ? Array < promotionGetPayload<S['include'][P]>>  :
         P extends '_count' ? ProductCountOutputTypeGetPayload<S['include'][P]> :  never
@@ -1206,6 +1284,7 @@ export namespace Prisma {
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
+        P extends 'productType' ? productTypeGetPayload<S['select'][P]> :
         P extends 'store' ? storeGetPayload<S['select'][P]> :
         P extends 'promotion' ? Array < promotionGetPayload<S['select'][P]>>  :
         P extends '_count' ? ProductCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof product ? product[P] : never
@@ -1547,6 +1626,8 @@ export namespace Prisma {
     private _requestPromise?;
     constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
     readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+    productType<T extends productTypeArgs = {}>(args?: Subset<T, productTypeArgs>): CheckSelect<T, Prisma__productTypeClient<productType | null >, Prisma__productTypeClient<productTypeGetPayload<T> | null >>;
 
     store<T extends storeArgs = {}>(args?: Subset<T, storeArgs>): CheckSelect<T, Prisma__storeClient<store | null >, Prisma__storeClient<storeGetPayload<T> | null >>;
 
@@ -2074,10 +2155,14 @@ export namespace Prisma {
     name?: boolean
     store_idstore?: boolean
     store?: boolean | storeArgs
+    product?: boolean | productFindManyArgs
+    _count?: boolean | ProductTypeCountOutputTypeArgs
   }
 
   export type productTypeInclude = {
     store?: boolean | storeArgs
+    product?: boolean | productFindManyArgs
+    _count?: boolean | ProductTypeCountOutputTypeArgs
   }
 
   export type productTypeGetPayload<
@@ -2091,12 +2176,16 @@ export namespace Prisma {
     ?'include' extends U
     ? productType  & {
     [P in TrueKeys<S['include']>]:
-        P extends 'store' ? storeGetPayload<S['include'][P]> :  never
+        P extends 'store' ? storeGetPayload<S['include'][P]> :
+        P extends 'product' ? Array < productGetPayload<S['include'][P]>>  :
+        P extends '_count' ? ProductTypeCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : 'select' extends U
     ? {
     [P in TrueKeys<S['select']>]:
-        P extends 'store' ? storeGetPayload<S['select'][P]> :  P extends keyof productType ? productType[P] : never
+        P extends 'store' ? storeGetPayload<S['select'][P]> :
+        P extends 'product' ? Array < productGetPayload<S['select'][P]>>  :
+        P extends '_count' ? ProductTypeCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof productType ? productType[P] : never
   } 
     : productType
   : productType
@@ -2437,6 +2526,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
     store<T extends storeArgs = {}>(args?: Subset<T, storeArgs>): CheckSelect<T, Prisma__storeClient<store | null >, Prisma__storeClient<storeGetPayload<T> | null >>;
+
+    product<T extends productFindManyArgs = {}>(args?: Subset<T, productFindManyArgs>): CheckSelect<T, PrismaPromise<Array<product>>, PrismaPromise<Array<productGetPayload<T>>>>;
 
     private get _document();
     /**
@@ -5593,7 +5684,9 @@ export namespace Prisma {
     image: 'image',
     name: 'name',
     price: 'price',
-    store_idstore: 'store_idstore'
+    store_idstore: 'store_idstore',
+    productType_idproduct_type: 'productType_idproduct_type',
+    productType_store_idstore: 'productType_store_idstore'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -5673,6 +5766,9 @@ export namespace Prisma {
     name?: StringNullableFilter | string | null
     price?: FloatNullableFilter | number | null
     store_idstore?: IntFilter | number
+    productType_idproduct_type?: IntFilter | number
+    productType_store_idstore?: IntFilter | number
+    productType?: XOR<ProductTypeRelationFilter, productTypeWhereInput>
     store?: XOR<StoreRelationFilter, storeWhereInput>
     promotion?: PromotionListRelationFilter
   }
@@ -5684,12 +5780,15 @@ export namespace Prisma {
     name?: SortOrder
     price?: SortOrder
     store_idstore?: SortOrder
+    productType_idproduct_type?: SortOrder
+    productType_store_idstore?: SortOrder
+    productType?: productTypeOrderByWithRelationInput
     store?: storeOrderByWithRelationInput
     promotion?: promotionOrderByRelationAggregateInput
   }
 
   export type productWhereUniqueInput = {
-    idproduct_store_idstore?: productIdproductStore_idstoreCompoundUniqueInput
+    idproduct_store_idstore_productType_idproduct_type_productType_store_idstore?: productIdproductStore_idstoreProductType_idproduct_typeProductType_store_idstoreCompoundUniqueInput
   }
 
   export type productOrderByWithAggregationInput = {
@@ -5699,6 +5798,8 @@ export namespace Prisma {
     name?: SortOrder
     price?: SortOrder
     store_idstore?: SortOrder
+    productType_idproduct_type?: SortOrder
+    productType_store_idstore?: SortOrder
     _count?: productCountOrderByAggregateInput
     _avg?: productAvgOrderByAggregateInput
     _max?: productMaxOrderByAggregateInput
@@ -5716,6 +5817,8 @@ export namespace Prisma {
     name?: StringNullableWithAggregatesFilter | string | null
     price?: FloatNullableWithAggregatesFilter | number | null
     store_idstore?: IntWithAggregatesFilter | number
+    productType_idproduct_type?: IntWithAggregatesFilter | number
+    productType_store_idstore?: IntWithAggregatesFilter | number
   }
 
   export type productTypeWhereInput = {
@@ -5726,6 +5829,7 @@ export namespace Prisma {
     name?: StringNullableFilter | string | null
     store_idstore?: IntFilter | number
     store?: XOR<StoreRelationFilter, storeWhereInput>
+    product?: ProductListRelationFilter
   }
 
   export type productTypeOrderByWithRelationInput = {
@@ -5733,6 +5837,7 @@ export namespace Prisma {
     name?: SortOrder
     store_idstore?: SortOrder
     store?: storeOrderByWithRelationInput
+    product?: productOrderByRelationAggregateInput
   }
 
   export type productTypeWhereUniqueInput = {
@@ -5956,6 +6061,7 @@ export namespace Prisma {
     image?: string | null
     name?: string | null
     price?: number | null
+    productType: productTypeCreateNestedOneWithoutProductInput
     store: storeCreateNestedOneWithoutProductInput
     promotion?: promotionCreateNestedManyWithoutProductInput
   }
@@ -5967,6 +6073,8 @@ export namespace Prisma {
     name?: string | null
     price?: number | null
     store_idstore: number
+    productType_idproduct_type: number
+    productType_store_idstore: number
     promotion?: promotionUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -5976,6 +6084,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
+    productType?: productTypeUpdateOneRequiredWithoutProductInput
     store?: storeUpdateOneRequiredWithoutProductInput
     promotion?: promotionUpdateManyWithoutProductInput
   }
@@ -5987,6 +6096,8 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     store_idstore?: IntFieldUpdateOperationsInput | number
+    productType_idproduct_type?: IntFieldUpdateOperationsInput | number
+    productType_store_idstore?: IntFieldUpdateOperationsInput | number
     promotion?: promotionUncheckedUpdateManyWithoutProductInput
   }
 
@@ -5997,6 +6108,8 @@ export namespace Prisma {
     name?: string | null
     price?: number | null
     store_idstore: number
+    productType_idproduct_type: number
+    productType_store_idstore: number
   }
 
   export type productUpdateManyMutationInput = {
@@ -6014,30 +6127,36 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     store_idstore?: IntFieldUpdateOperationsInput | number
+    productType_idproduct_type?: IntFieldUpdateOperationsInput | number
+    productType_store_idstore?: IntFieldUpdateOperationsInput | number
   }
 
   export type productTypeCreateInput = {
     idproduct_type?: number
     name?: string | null
     store: storeCreateNestedOneWithoutProductTypeInput
+    product?: productCreateNestedManyWithoutProductTypeInput
   }
 
   export type productTypeUncheckedCreateInput = {
     idproduct_type?: number
     name?: string | null
     store_idstore: number
+    product?: productUncheckedCreateNestedManyWithoutProductTypeInput
   }
 
   export type productTypeUpdateInput = {
     idproduct_type?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
     store?: storeUpdateOneRequiredWithoutProductTypeInput
+    product?: productUpdateManyWithoutProductTypeInput
   }
 
   export type productTypeUncheckedUpdateInput = {
     idproduct_type?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
     store_idstore?: IntFieldUpdateOperationsInput | number
+    product?: productUncheckedUpdateManyWithoutProductTypeInput
   }
 
   export type productTypeCreateManyInput = {
@@ -6331,6 +6450,11 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter | number | null
   }
 
+  export type ProductTypeRelationFilter = {
+    is?: productTypeWhereInput
+    isNot?: productTypeWhereInput
+  }
+
   export type StoreRelationFilter = {
     is?: storeWhereInput
     isNot?: storeWhereInput
@@ -6346,9 +6470,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type productIdproductStore_idstoreCompoundUniqueInput = {
+  export type productIdproductStore_idstoreProductType_idproduct_typeProductType_store_idstoreCompoundUniqueInput = {
     idproduct: number
     store_idstore: number
+    productType_idproduct_type: number
+    productType_store_idstore: number
   }
 
   export type productCountOrderByAggregateInput = {
@@ -6358,12 +6484,16 @@ export namespace Prisma {
     name?: SortOrder
     price?: SortOrder
     store_idstore?: SortOrder
+    productType_idproduct_type?: SortOrder
+    productType_store_idstore?: SortOrder
   }
 
   export type productAvgOrderByAggregateInput = {
     idproduct?: SortOrder
     price?: SortOrder
     store_idstore?: SortOrder
+    productType_idproduct_type?: SortOrder
+    productType_store_idstore?: SortOrder
   }
 
   export type productMaxOrderByAggregateInput = {
@@ -6373,6 +6503,8 @@ export namespace Prisma {
     name?: SortOrder
     price?: SortOrder
     store_idstore?: SortOrder
+    productType_idproduct_type?: SortOrder
+    productType_store_idstore?: SortOrder
   }
 
   export type productMinOrderByAggregateInput = {
@@ -6382,12 +6514,16 @@ export namespace Prisma {
     name?: SortOrder
     price?: SortOrder
     store_idstore?: SortOrder
+    productType_idproduct_type?: SortOrder
+    productType_store_idstore?: SortOrder
   }
 
   export type productSumOrderByAggregateInput = {
     idproduct?: SortOrder
     price?: SortOrder
     store_idstore?: SortOrder
+    productType_idproduct_type?: SortOrder
+    productType_store_idstore?: SortOrder
   }
 
   export type IntWithAggregatesFilter = {
@@ -6437,6 +6573,16 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter
     _min?: NestedFloatNullableFilter
     _max?: NestedFloatNullableFilter
+  }
+
+  export type ProductListRelationFilter = {
+    every?: productWhereInput
+    some?: productWhereInput
+    none?: productWhereInput
+  }
+
+  export type productOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type productTypeIdproduct_typeStore_idstoreCompoundUniqueInput = {
@@ -6589,12 +6735,6 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter | Date | string | null
   }
 
-  export type ProductListRelationFilter = {
-    every?: productWhereInput
-    some?: productWhereInput
-    none?: productWhereInput
-  }
-
   export type ProductTypeListRelationFilter = {
     every?: productTypeWhereInput
     some?: productTypeWhereInput
@@ -6605,10 +6745,6 @@ export namespace Prisma {
     every?: usersWhereInput
     some?: usersWhereInput
     none?: usersWhereInput
-  }
-
-  export type productOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type productTypeOrderByRelationAggregateInput = {
@@ -6677,6 +6813,12 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter
   }
 
+  export type productTypeCreateNestedOneWithoutProductInput = {
+    create?: XOR<productTypeCreateWithoutProductInput, productTypeUncheckedCreateWithoutProductInput>
+    connectOrCreate?: productTypeCreateOrConnectWithoutProductInput
+    connect?: productTypeWhereUniqueInput
+  }
+
   export type storeCreateNestedOneWithoutProductInput = {
     create?: XOR<storeCreateWithoutProductInput, storeUncheckedCreateWithoutProductInput>
     connectOrCreate?: storeCreateOrConnectWithoutProductInput
@@ -6715,6 +6857,14 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type productTypeUpdateOneRequiredWithoutProductInput = {
+    create?: XOR<productTypeCreateWithoutProductInput, productTypeUncheckedCreateWithoutProductInput>
+    connectOrCreate?: productTypeCreateOrConnectWithoutProductInput
+    upsert?: productTypeUpsertWithoutProductInput
+    connect?: productTypeWhereUniqueInput
+    update?: XOR<productTypeUpdateWithoutProductInput, productTypeUncheckedUpdateWithoutProductInput>
   }
 
   export type storeUpdateOneRequiredWithoutProductInput = {
@@ -6759,12 +6909,54 @@ export namespace Prisma {
     connect?: storeWhereUniqueInput
   }
 
+  export type productCreateNestedManyWithoutProductTypeInput = {
+    create?: XOR<Enumerable<productCreateWithoutProductTypeInput>, Enumerable<productUncheckedCreateWithoutProductTypeInput>>
+    connectOrCreate?: Enumerable<productCreateOrConnectWithoutProductTypeInput>
+    createMany?: productCreateManyProductTypeInputEnvelope
+    connect?: Enumerable<productWhereUniqueInput>
+  }
+
+  export type productUncheckedCreateNestedManyWithoutProductTypeInput = {
+    create?: XOR<Enumerable<productCreateWithoutProductTypeInput>, Enumerable<productUncheckedCreateWithoutProductTypeInput>>
+    connectOrCreate?: Enumerable<productCreateOrConnectWithoutProductTypeInput>
+    createMany?: productCreateManyProductTypeInputEnvelope
+    connect?: Enumerable<productWhereUniqueInput>
+  }
+
   export type storeUpdateOneRequiredWithoutProductTypeInput = {
     create?: XOR<storeCreateWithoutProductTypeInput, storeUncheckedCreateWithoutProductTypeInput>
     connectOrCreate?: storeCreateOrConnectWithoutProductTypeInput
     upsert?: storeUpsertWithoutProductTypeInput
     connect?: storeWhereUniqueInput
     update?: XOR<storeUpdateWithoutProductTypeInput, storeUncheckedUpdateWithoutProductTypeInput>
+  }
+
+  export type productUpdateManyWithoutProductTypeInput = {
+    create?: XOR<Enumerable<productCreateWithoutProductTypeInput>, Enumerable<productUncheckedCreateWithoutProductTypeInput>>
+    connectOrCreate?: Enumerable<productCreateOrConnectWithoutProductTypeInput>
+    upsert?: Enumerable<productUpsertWithWhereUniqueWithoutProductTypeInput>
+    createMany?: productCreateManyProductTypeInputEnvelope
+    set?: Enumerable<productWhereUniqueInput>
+    disconnect?: Enumerable<productWhereUniqueInput>
+    delete?: Enumerable<productWhereUniqueInput>
+    connect?: Enumerable<productWhereUniqueInput>
+    update?: Enumerable<productUpdateWithWhereUniqueWithoutProductTypeInput>
+    updateMany?: Enumerable<productUpdateManyWithWhereWithoutProductTypeInput>
+    deleteMany?: Enumerable<productScalarWhereInput>
+  }
+
+  export type productUncheckedUpdateManyWithoutProductTypeInput = {
+    create?: XOR<Enumerable<productCreateWithoutProductTypeInput>, Enumerable<productUncheckedCreateWithoutProductTypeInput>>
+    connectOrCreate?: Enumerable<productCreateOrConnectWithoutProductTypeInput>
+    upsert?: Enumerable<productUpsertWithWhereUniqueWithoutProductTypeInput>
+    createMany?: productCreateManyProductTypeInputEnvelope
+    set?: Enumerable<productWhereUniqueInput>
+    disconnect?: Enumerable<productWhereUniqueInput>
+    delete?: Enumerable<productWhereUniqueInput>
+    connect?: Enumerable<productWhereUniqueInput>
+    update?: Enumerable<productUpdateWithWhereUniqueWithoutProductTypeInput>
+    updateMany?: Enumerable<productUpdateManyWithWhereWithoutProductTypeInput>
+    deleteMany?: Enumerable<productScalarWhereInput>
   }
 
   export type storeCreateNestedOneWithoutUsersInput = {
@@ -7113,6 +7305,23 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter
   }
 
+  export type productTypeCreateWithoutProductInput = {
+    idproduct_type?: number
+    name?: string | null
+    store: storeCreateNestedOneWithoutProductTypeInput
+  }
+
+  export type productTypeUncheckedCreateWithoutProductInput = {
+    idproduct_type?: number
+    name?: string | null
+    store_idstore: number
+  }
+
+  export type productTypeCreateOrConnectWithoutProductInput = {
+    where: productTypeWhereUniqueInput
+    create: XOR<productTypeCreateWithoutProductInput, productTypeUncheckedCreateWithoutProductInput>
+  }
+
   export type storeCreateWithoutProductInput = {
     name?: string | null
     description?: string | null
@@ -7173,6 +7382,23 @@ export namespace Prisma {
   export type promotionCreateManyProductInputEnvelope = {
     data: Enumerable<promotionCreateManyProductInput>
     skipDuplicates?: boolean
+  }
+
+  export type productTypeUpsertWithoutProductInput = {
+    update: XOR<productTypeUpdateWithoutProductInput, productTypeUncheckedUpdateWithoutProductInput>
+    create: XOR<productTypeCreateWithoutProductInput, productTypeUncheckedCreateWithoutProductInput>
+  }
+
+  export type productTypeUpdateWithoutProductInput = {
+    idproduct_type?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    store?: storeUpdateOneRequiredWithoutProductTypeInput
+  }
+
+  export type productTypeUncheckedUpdateWithoutProductInput = {
+    idproduct_type?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    store_idstore?: IntFieldUpdateOperationsInput | number
   }
 
   export type storeUpsertWithoutProductInput = {
@@ -7273,6 +7499,36 @@ export namespace Prisma {
     create: XOR<storeCreateWithoutProductTypeInput, storeUncheckedCreateWithoutProductTypeInput>
   }
 
+  export type productCreateWithoutProductTypeInput = {
+    idproduct?: number
+    description?: string | null
+    image?: string | null
+    name?: string | null
+    price?: number | null
+    store: storeCreateNestedOneWithoutProductInput
+    promotion?: promotionCreateNestedManyWithoutProductInput
+  }
+
+  export type productUncheckedCreateWithoutProductTypeInput = {
+    idproduct?: number
+    description?: string | null
+    image?: string | null
+    name?: string | null
+    price?: number | null
+    store_idstore: number
+    promotion?: promotionUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type productCreateOrConnectWithoutProductTypeInput = {
+    where: productWhereUniqueInput
+    create: XOR<productCreateWithoutProductTypeInput, productUncheckedCreateWithoutProductTypeInput>
+  }
+
+  export type productCreateManyProductTypeInputEnvelope = {
+    data: Enumerable<productCreateManyProductTypeInput>
+    skipDuplicates?: boolean
+  }
+
   export type storeUpsertWithoutProductTypeInput = {
     update: XOR<storeUpdateWithoutProductTypeInput, storeUncheckedUpdateWithoutProductTypeInput>
     create: XOR<storeCreateWithoutProductTypeInput, storeUncheckedCreateWithoutProductTypeInput>
@@ -7305,6 +7561,36 @@ export namespace Prisma {
     product?: productUncheckedUpdateManyWithoutStoreInput
     promotion?: promotionUncheckedUpdateManyWithoutStoreInput
     users?: usersUncheckedUpdateManyWithoutStoreInput
+  }
+
+  export type productUpsertWithWhereUniqueWithoutProductTypeInput = {
+    where: productWhereUniqueInput
+    update: XOR<productUpdateWithoutProductTypeInput, productUncheckedUpdateWithoutProductTypeInput>
+    create: XOR<productCreateWithoutProductTypeInput, productUncheckedCreateWithoutProductTypeInput>
+  }
+
+  export type productUpdateWithWhereUniqueWithoutProductTypeInput = {
+    where: productWhereUniqueInput
+    data: XOR<productUpdateWithoutProductTypeInput, productUncheckedUpdateWithoutProductTypeInput>
+  }
+
+  export type productUpdateManyWithWhereWithoutProductTypeInput = {
+    where: productScalarWhereInput
+    data: XOR<productUpdateManyMutationInput, productUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type productScalarWhereInput = {
+    AND?: Enumerable<productScalarWhereInput>
+    OR?: Enumerable<productScalarWhereInput>
+    NOT?: Enumerable<productScalarWhereInput>
+    idproduct?: IntFilter | number
+    description?: StringNullableFilter | string | null
+    image?: StringNullableFilter | string | null
+    name?: StringNullableFilter | string | null
+    price?: FloatNullableFilter | number | null
+    store_idstore?: IntFilter | number
+    productType_idproduct_type?: IntFilter | number
+    productType_store_idstore?: IntFilter | number
   }
 
   export type storeCreateWithoutUsersInput = {
@@ -7381,6 +7667,7 @@ export namespace Prisma {
     image?: string | null
     name?: string | null
     price?: number | null
+    productType: productTypeCreateNestedOneWithoutProductInput
     store: storeCreateNestedOneWithoutProductInput
   }
 
@@ -7391,6 +7678,8 @@ export namespace Prisma {
     name?: string | null
     price?: number | null
     store_idstore: number
+    productType_idproduct_type: number
+    productType_store_idstore: number
   }
 
   export type productCreateOrConnectWithoutPromotionInput = {
@@ -7443,6 +7732,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
+    productType?: productTypeUpdateOneRequiredWithoutProductInput
     store?: storeUpdateOneRequiredWithoutProductInput
   }
 
@@ -7453,6 +7743,8 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     store_idstore?: IntFieldUpdateOperationsInput | number
+    productType_idproduct_type?: IntFieldUpdateOperationsInput | number
+    productType_store_idstore?: IntFieldUpdateOperationsInput | number
   }
 
   export type storeUpsertWithoutPromotionInput = {
@@ -7495,6 +7787,7 @@ export namespace Prisma {
     image?: string | null
     name?: string | null
     price?: number | null
+    productType: productTypeCreateNestedOneWithoutProductInput
     promotion?: promotionCreateNestedManyWithoutProductInput
   }
 
@@ -7504,6 +7797,8 @@ export namespace Prisma {
     image?: string | null
     name?: string | null
     price?: number | null
+    productType_idproduct_type: number
+    productType_store_idstore: number
     promotion?: promotionUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -7520,11 +7815,13 @@ export namespace Prisma {
   export type productTypeCreateWithoutStoreInput = {
     idproduct_type?: number
     name?: string | null
+    product?: productCreateNestedManyWithoutProductTypeInput
   }
 
   export type productTypeUncheckedCreateWithoutStoreInput = {
     idproduct_type?: number
     name?: string | null
+    product?: productUncheckedCreateNestedManyWithoutProductTypeInput
   }
 
   export type productTypeCreateOrConnectWithoutStoreInput = {
@@ -7608,18 +7905,6 @@ export namespace Prisma {
   export type productUpdateManyWithWhereWithoutStoreInput = {
     where: productScalarWhereInput
     data: XOR<productUpdateManyMutationInput, productUncheckedUpdateManyWithoutProductInput>
-  }
-
-  export type productScalarWhereInput = {
-    AND?: Enumerable<productScalarWhereInput>
-    OR?: Enumerable<productScalarWhereInput>
-    NOT?: Enumerable<productScalarWhereInput>
-    idproduct?: IntFilter | number
-    description?: StringNullableFilter | string | null
-    image?: StringNullableFilter | string | null
-    name?: StringNullableFilter | string | null
-    price?: FloatNullableFilter | number | null
-    store_idstore?: IntFilter | number
   }
 
   export type productTypeUpsertWithWhereUniqueWithoutStoreInput = {
@@ -7728,12 +8013,52 @@ export namespace Prisma {
     store_idstore?: IntFieldUpdateOperationsInput | number
   }
 
+  export type productCreateManyProductTypeInput = {
+    idproduct?: number
+    description?: string | null
+    image?: string | null
+    name?: string | null
+    price?: number | null
+    store_idstore: number
+  }
+
+  export type productUpdateWithoutProductTypeInput = {
+    idproduct?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    store?: storeUpdateOneRequiredWithoutProductInput
+    promotion?: promotionUpdateManyWithoutProductInput
+  }
+
+  export type productUncheckedUpdateWithoutProductTypeInput = {
+    idproduct?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    store_idstore?: IntFieldUpdateOperationsInput | number
+    promotion?: promotionUncheckedUpdateManyWithoutProductInput
+  }
+
+  export type productUncheckedUpdateManyWithoutProductInput = {
+    idproduct?: IntFieldUpdateOperationsInput | number
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    store_idstore?: IntFieldUpdateOperationsInput | number
+  }
+
   export type productCreateManyStoreInput = {
     idproduct?: number
     description?: string | null
     image?: string | null
     name?: string | null
     price?: number | null
+    productType_idproduct_type: number
+    productType_store_idstore: number
   }
 
   export type productTypeCreateManyStoreInput = {
@@ -7766,6 +8091,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
+    productType?: productTypeUpdateOneRequiredWithoutProductInput
     promotion?: promotionUpdateManyWithoutProductInput
   }
 
@@ -7775,25 +8101,21 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
+    productType_idproduct_type?: IntFieldUpdateOperationsInput | number
+    productType_store_idstore?: IntFieldUpdateOperationsInput | number
     promotion?: promotionUncheckedUpdateManyWithoutProductInput
-  }
-
-  export type productUncheckedUpdateManyWithoutProductInput = {
-    idproduct?: IntFieldUpdateOperationsInput | number
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type productTypeUpdateWithoutStoreInput = {
     idproduct_type?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    product?: productUpdateManyWithoutProductTypeInput
   }
 
   export type productTypeUncheckedUpdateWithoutStoreInput = {
     idproduct_type?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    product?: productUncheckedUpdateManyWithoutProductTypeInput
   }
 
   export type productTypeUncheckedUpdateManyWithoutProductTypeInput = {

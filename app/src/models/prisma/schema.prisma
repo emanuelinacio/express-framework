@@ -9,24 +9,29 @@ datasource db {
 }
 
 model product {
-  idproduct     Int         @default(autoincrement())
-  description   String?     @db.VarChar(45)
-  image         String?     @db.VarChar(45)
-  name          String?     @db.VarChar(45)
-  price         Float?
-  store_idstore Int
-  store         store       @relation(fields: [store_idstore], references: [idstore], onDelete: NoAction, onUpdate: NoAction, map: "fk_product_store1")
-  promotion     promotion[]
+  idproduct                  Int         @default(autoincrement())
+  description                String?     @db.VarChar(45)
+  image                      String?     @db.VarChar(45)
+  name                       String?     @db.VarChar(45)
+  price                      Float?
+  store_idstore              Int
+  productType_idproduct_type Int
+  productType_store_idstore  Int
+  productType                productType @relation(fields: [productType_idproduct_type, productType_store_idstore], references: [idproduct_type, store_idstore], onDelete: NoAction, onUpdate: NoAction, map: "fk_product_productType1")
+  store                      store       @relation(fields: [store_idstore], references: [idstore], onDelete: NoAction, onUpdate: NoAction, map: "fk_product_store1")
+  promotion                  promotion[]
 
-  @@id([idproduct, store_idstore])
+  @@id([idproduct, store_idstore, productType_idproduct_type, productType_store_idstore])
   @@index([store_idstore], map: "fk_product_store1_idx")
+  @@index([productType_idproduct_type, productType_store_idstore], map: "fk_product_productType1_idx")
 }
 
 model productType {
-  idproduct_type Int     @default(autoincrement())
-  name           String? @db.VarChar(45)
+  idproduct_type Int       @default(autoincrement())
+  name           String?   @db.VarChar(45)
   store_idstore  Int
-  store          store   @relation(fields: [store_idstore], references: [idstore], onDelete: NoAction, onUpdate: NoAction, map: "fk_productType_store1")
+  store          store     @relation(fields: [store_idstore], references: [idstore], onDelete: NoAction, onUpdate: NoAction, map: "fk_productType_store1")
+  product        product[]
 
   @@id([idproduct_type, store_idstore])
   @@index([store_idstore], map: "fk_productType_store1_idx")
@@ -77,4 +82,14 @@ model store {
   productType    productType[]
   promotion      promotion[]
   users          users[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model user {
+  username    String    @db.VarChar(16)
+  email       String?   @db.VarChar(255)
+  password    String    @db.VarChar(32)
+  create_time DateTime? @default(now()) @db.Timestamp(0)
+
+  @@ignore
 }

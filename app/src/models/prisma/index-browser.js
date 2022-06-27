@@ -82,7 +82,9 @@ exports.Prisma.ProductScalarFieldEnum = makeEnum({
   image: 'image',
   name: 'name',
   price: 'price',
-  store_idstore: 'store_idstore'
+  store_idstore: 'store_idstore',
+  productType_idproduct_type: 'productType_idproduct_type',
+  productType_store_idstore: 'productType_store_idstore'
 });
 
 exports.Prisma.ProductTypeScalarFieldEnum = makeEnum({
