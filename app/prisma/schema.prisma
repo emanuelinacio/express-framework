@@ -9,28 +9,72 @@ datasource db {
 }
 
 model product {
-  idproduct                  Int
-  name                       String?     @db.VarChar(45)
-  description                String?     @db.VarChar(45)
-  price                      Float?
-  productType_idproduct_type Int
-  productType                productType @relation(fields: [productType_idproduct_type], references: [idproduct_type], onDelete: NoAction, onUpdate: NoAction, map: "fk_product_productType")
+  idproduct     Int         @default(autoincrement())
+  description   String?     @db.VarChar(45)
+  image         String?     @db.VarChar(45)
+  name          String?     @db.VarChar(45)
+  price         Float?
+  store_idstore Int
+  store         store       @relation(fields: [store_idstore], references: [idstore], onDelete: NoAction, onUpdate: NoAction, map: "fk_product_store1")
+  promotion     promotion[]
 
-  @@id([idproduct, productType_idproduct_type])
-  @@index([productType_idproduct_type], map: "fk_product_productType_idx")
+  @@id([idproduct, store_idstore])
+  @@index([store_idstore], map: "fk_product_store1_idx")
 }
 
 model productType {
-  idproduct_type Int       @id
-  name           String?   @db.VarChar(45)
-  product        product[]
+  idproduct_type Int     @default(autoincrement())
+  name           String? @db.VarChar(45)
+  store_idstore  Int
+  store          store   @relation(fields: [store_idstore], references: [idstore], onDelete: NoAction, onUpdate: NoAction, map: "fk_productType_store1")
+
+  @@id([idproduct_type, store_idstore])
+  @@index([store_idstore], map: "fk_productType_store1_idx")
 }
 
 model users {
-  idusers   Int     @id
-  name      String? @db.VarChar(45)
-  last_name String? @db.VarChar(45)
-  login     String? @db.VarChar(45)
-  password  String? @db.Char(32)
-  email     String? @db.VarChar(45)
+  idusers       Int
+  name          String? @db.VarChar(45)
+  last_name     String? @db.VarChar(45)
+  login         String? @db.VarChar(45)
+  password      String? @db.Char(32)
+  email         String? @db.VarChar(45)
+  store_idstore Int
+  store         store   @relation(fields: [store_idstore], references: [idstore], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_store")
+
+  @@id([idusers, store_idstore])
+  @@index([store_idstore], map: "fk_users_store_idx")
+}
+
+model promotion {
+  idpromotion           Int     @default(autoincrement())
+  name                  String? @db.VarChar(45)
+  description           String? @db.VarChar(45)
+  active                String? @db.Char(1)
+  price                 Float?
+  store_idstore         Int
+  product_idproduct     Int
+  product_store_idstore Int
+  product               product @relation(fields: [product_idproduct, product_store_idstore], references: [idproduct, store_idstore], onDelete: NoAction, onUpdate: NoAction, map: "fk_promotion_product1")
+  store                 store   @relation(fields: [store_idstore], references: [idstore], onDelete: NoAction, onUpdate: NoAction, map: "fk_promotion_store1")
+
+  @@id([idpromotion, store_idstore, product_idproduct, product_store_idstore])
+  @@index([product_idproduct, product_store_idstore], map: "fk_promotion_product1_idx")
+  @@index([store_idstore], map: "fk_promotion_store1_idx")
+}
+
+model store {
+  idstore        Int           @id @default(autoincrement())
+  name           String?       @db.VarChar(45)
+  description    String?       @db.TinyText
+  open           DateTime?     @db.DateTime(0)
+  closed         DateTime?     @db.DateTime(0)
+  featured_image String?       @db.VarChar(45)
+  logo_image     String?       @db.VarChar(45)
+  slug           String?       @db.VarChar(45)
+  address        String?       @db.VarChar(45)
+  product        product[]
+  productType    productType[]
+  promotion      promotion[]
+  users          users[]
 }

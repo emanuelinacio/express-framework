@@ -78,15 +78,17 @@ function makeEnum(x) { return x; }
 
 exports.Prisma.ProductScalarFieldEnum = makeEnum({
   idproduct: 'idproduct',
-  name: 'name',
   description: 'description',
+  image: 'image',
+  name: 'name',
   price: 'price',
-  productType_idproduct_type: 'productType_idproduct_type'
+  store_idstore: 'store_idstore'
 });
 
 exports.Prisma.ProductTypeScalarFieldEnum = makeEnum({
   idproduct_type: 'idproduct_type',
-  name: 'name'
+  name: 'name',
+  store_idstore: 'store_idstore'
 });
 
 exports.Prisma.UsersScalarFieldEnum = makeEnum({
@@ -95,7 +97,31 @@ exports.Prisma.UsersScalarFieldEnum = makeEnum({
   last_name: 'last_name',
   login: 'login',
   password: 'password',
-  email: 'email'
+  email: 'email',
+  store_idstore: 'store_idstore'
+});
+
+exports.Prisma.PromotionScalarFieldEnum = makeEnum({
+  idpromotion: 'idpromotion',
+  name: 'name',
+  description: 'description',
+  active: 'active',
+  price: 'price',
+  store_idstore: 'store_idstore',
+  product_idproduct: 'product_idproduct',
+  product_store_idstore: 'product_store_idstore'
+});
+
+exports.Prisma.StoreScalarFieldEnum = makeEnum({
+  idstore: 'idstore',
+  name: 'name',
+  description: 'description',
+  open: 'open',
+  closed: 'closed',
+  featured_image: 'featured_image',
+  logo_image: 'logo_image',
+  slug: 'slug',
+  address: 'address'
 });
 
 exports.Prisma.SortOrder = makeEnum({
@@ -107,7 +133,9 @@ exports.Prisma.SortOrder = makeEnum({
 exports.Prisma.ModelName = makeEnum({
   product: 'product',
   productType: 'productType',
-  users: 'users'
+  users: 'users',
+  promotion: 'promotion',
+  store: 'store'
 });
 
 /**
