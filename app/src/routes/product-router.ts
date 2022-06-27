@@ -1,6 +1,7 @@
 import StatusCodes from 'http-status-codes';
 import { Request, Response, Router } from 'express';
 import productTypeService from '@services/productType-service';
+import productService from '@services/product-service';
 import { ParamMissingError } from '@shared/errors';
 
 
@@ -24,10 +25,10 @@ export const p = {
  */
 router.get(p.get, async (_: Request, res: Response) => {
 
-    console.log( 'dentro product type' );
+    console.log( 'dentro product' );
 
-    const productType = await productTypeService.getAll();
-    return res.status(OK).json({productType});
+    const product = await productService.getAll();
+    return res.status(OK).json({product});
 });
 
 

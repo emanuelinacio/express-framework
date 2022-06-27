@@ -6,10 +6,10 @@ const prisma = new PrismaClient();
 const getAllProductType = async function () : Promise<IProductType[] | null>
 {
     const products = await prisma.productType.findMany();
-    const productTypeArray = new Array();
+    const usersArray = new Array();
 
     products.map( function( productItem ) {
-        productTypeArray.push(
+        usersArray.push(
             productType.new( 
                 productItem.idproduct_type !== null ? productItem.idproduct_type : 0,
                 productItem.name !== null ? productItem.name : '',
@@ -17,7 +17,7 @@ const getAllProductType = async function () : Promise<IProductType[] | null>
         );
     } );
 
-    return productTypeArray;
+    return usersArray;
 }
 
 const getOneProductType = async function ( id: number ) : Promise<IProductType | null>
