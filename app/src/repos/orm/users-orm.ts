@@ -26,7 +26,7 @@ const getAllUsers = async function () : Promise<IUser[] | null>
 
 const getOneUser = async function ( id: number ) : Promise<IUser | null>
 {
-    const user = await prisma.users.findUnique({
+    const user = await prisma.users.findFirst({
         where: {
             idusers: id,
         },

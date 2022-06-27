@@ -9,7 +9,7 @@ datasource db {
 }
 
 model product {
-  idproduct                  Int         @default(autoincrement())
+  idproduct                  Int         @unique(map: "idproduct_UNIQUE") @default(autoincrement())
   description                String?     @db.VarChar(45)
   image                      String?     @db.VarChar(45)
   name                       String?     @db.VarChar(45)
@@ -22,12 +22,12 @@ model product {
   promotion                  promotion[]
 
   @@id([idproduct, store_idstore, productType_idproduct_type, productType_store_idstore])
-  @@index([store_idstore], map: "fk_product_store1_idx")
   @@index([productType_idproduct_type, productType_store_idstore], map: "fk_product_productType1_idx")
+  @@index([store_idstore], map: "fk_product_store1_idx")
 }
 
 model productType {
-  idproduct_type Int       @default(autoincrement())
+  idproduct_type Int       @unique(map: "idproduct_type_UNIQUE") @default(autoincrement())
   name           String?   @db.VarChar(45)
   store_idstore  Int
   store          store     @relation(fields: [store_idstore], references: [idstore], onDelete: NoAction, onUpdate: NoAction, map: "fk_productType_store1")
@@ -37,22 +37,8 @@ model productType {
   @@index([store_idstore], map: "fk_productType_store1_idx")
 }
 
-model users {
-  idusers       Int
-  name          String? @db.VarChar(45)
-  last_name     String? @db.VarChar(45)
-  login         String? @db.VarChar(45)
-  password      String? @db.Char(32)
-  email         String? @db.VarChar(45)
-  store_idstore Int
-  store         store   @relation(fields: [store_idstore], references: [idstore], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_store")
-
-  @@id([idusers, store_idstore])
-  @@index([store_idstore], map: "fk_users_store_idx")
-}
-
 model promotion {
-  idpromotion           Int     @default(autoincrement())
+  idpromotion           Int     @unique(map: "idpromotion_UNIQUE") @default(autoincrement())
   name                  String? @db.VarChar(45)
   description           String? @db.VarChar(45)
   active                String? @db.Char(1)
@@ -69,7 +55,7 @@ model promotion {
 }
 
 model store {
-  idstore        Int           @id @default(autoincrement())
+  idstore        Int           @id @unique(map: "idstore_UNIQUE") @default(autoincrement())
   name           String?       @db.VarChar(45)
   description    String?       @db.TinyText
   open           DateTime?     @db.DateTime(0)
@@ -84,12 +70,16 @@ model store {
   users          users[]
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model user {
-  username    String    @db.VarChar(16)
-  email       String?   @db.VarChar(255)
-  password    String    @db.VarChar(32)
-  create_time DateTime? @default(now()) @db.Timestamp(0)
+model users {
+  idusers       Int     @unique(map: "idusers_UNIQUE") @default(autoincrement())
+  name          String? @db.VarChar(45)
+  last_name     String? @db.VarChar(45)
+  login         String? @db.VarChar(45)
+  password      String? @db.Char(32)
+  email         String? @db.VarChar(45)
+  store_idstore Int
+  store         store   @relation(fields: [store_idstore], references: [idstore], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_store")
 
-  @@ignore
+  @@id([idusers, store_idstore])
+  @@index([store_idstore], map: "fk_users_store_idx")
 }

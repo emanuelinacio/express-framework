@@ -93,16 +93,6 @@ exports.Prisma.ProductTypeScalarFieldEnum = makeEnum({
   store_idstore: 'store_idstore'
 });
 
-exports.Prisma.UsersScalarFieldEnum = makeEnum({
-  idusers: 'idusers',
-  name: 'name',
-  last_name: 'last_name',
-  login: 'login',
-  password: 'password',
-  email: 'email',
-  store_idstore: 'store_idstore'
-});
-
 exports.Prisma.PromotionScalarFieldEnum = makeEnum({
   idpromotion: 'idpromotion',
   name: 'name',
@@ -126,6 +116,16 @@ exports.Prisma.StoreScalarFieldEnum = makeEnum({
   address: 'address'
 });
 
+exports.Prisma.UsersScalarFieldEnum = makeEnum({
+  idusers: 'idusers',
+  name: 'name',
+  last_name: 'last_name',
+  login: 'login',
+  password: 'password',
+  email: 'email',
+  store_idstore: 'store_idstore'
+});
+
 exports.Prisma.SortOrder = makeEnum({
   asc: 'asc',
   desc: 'desc'
@@ -135,9 +135,9 @@ exports.Prisma.SortOrder = makeEnum({
 exports.Prisma.ModelName = makeEnum({
   product: 'product',
   productType: 'productType',
-  users: 'users',
   promotion: 'promotion',
-  store: 'store'
+  store: 'store',
+  users: 'users'
 });
 
 /**

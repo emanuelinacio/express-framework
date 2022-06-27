@@ -38,20 +38,6 @@ export type productType = {
 }
 
 /**
- * Model users
- * 
- */
-export type users = {
-  idusers: number
-  name: string | null
-  last_name: string | null
-  login: string | null
-  password: string | null
-  email: string | null
-  store_idstore: number
-}
-
-/**
  * Model promotion
  * 
  */
@@ -80,6 +66,20 @@ export type store = {
   logo_image: string | null
   slug: string | null
   address: string | null
+}
+
+/**
+ * Model users
+ * 
+ */
+export type users = {
+  idusers: number
+  name: string | null
+  last_name: string | null
+  login: string | null
+  password: string | null
+  email: string | null
+  store_idstore: number
 }
 
 
@@ -244,16 +244,6 @@ export class PrismaClient<
   get productType(): Prisma.productTypeDelegate<GlobalReject>;
 
   /**
-   * `prisma.users`: Exposes CRUD operations for the **users** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Users
-    * const users = await prisma.users.findMany()
-    * ```
-    */
-  get users(): Prisma.usersDelegate<GlobalReject>;
-
-  /**
    * `prisma.promotion`: Exposes CRUD operations for the **promotion** model.
     * Example usage:
     * ```ts
@@ -272,6 +262,16 @@ export class PrismaClient<
     * ```
     */
   get store(): Prisma.storeDelegate<GlobalReject>;
+
+  /**
+   * `prisma.users`: Exposes CRUD operations for the **users** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Users
+    * const users = await prisma.users.findMany()
+    * ```
+    */
+  get users(): Prisma.usersDelegate<GlobalReject>;
 }
 
 export namespace Prisma {
@@ -690,9 +690,9 @@ export namespace Prisma {
   export const ModelName: {
     product: 'product',
     productType: 'productType',
-    users: 'users',
     promotion: 'promotion',
-    store: 'store'
+    store: 'store',
+    users: 'users'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2858,924 +2858,6 @@ export namespace Prisma {
 
 
   /**
-   * Model users
-   */
-
-
-  export type AggregateUsers = {
-    _count: UsersCountAggregateOutputType | null
-    _avg: UsersAvgAggregateOutputType | null
-    _sum: UsersSumAggregateOutputType | null
-    _min: UsersMinAggregateOutputType | null
-    _max: UsersMaxAggregateOutputType | null
-  }
-
-  export type UsersAvgAggregateOutputType = {
-    idusers: number | null
-    store_idstore: number | null
-  }
-
-  export type UsersSumAggregateOutputType = {
-    idusers: number | null
-    store_idstore: number | null
-  }
-
-  export type UsersMinAggregateOutputType = {
-    idusers: number | null
-    name: string | null
-    last_name: string | null
-    login: string | null
-    password: string | null
-    email: string | null
-    store_idstore: number | null
-  }
-
-  export type UsersMaxAggregateOutputType = {
-    idusers: number | null
-    name: string | null
-    last_name: string | null
-    login: string | null
-    password: string | null
-    email: string | null
-    store_idstore: number | null
-  }
-
-  export type UsersCountAggregateOutputType = {
-    idusers: number
-    name: number
-    last_name: number
-    login: number
-    password: number
-    email: number
-    store_idstore: number
-    _all: number
-  }
-
-
-  export type UsersAvgAggregateInputType = {
-    idusers?: true
-    store_idstore?: true
-  }
-
-  export type UsersSumAggregateInputType = {
-    idusers?: true
-    store_idstore?: true
-  }
-
-  export type UsersMinAggregateInputType = {
-    idusers?: true
-    name?: true
-    last_name?: true
-    login?: true
-    password?: true
-    email?: true
-    store_idstore?: true
-  }
-
-  export type UsersMaxAggregateInputType = {
-    idusers?: true
-    name?: true
-    last_name?: true
-    login?: true
-    password?: true
-    email?: true
-    store_idstore?: true
-  }
-
-  export type UsersCountAggregateInputType = {
-    idusers?: true
-    name?: true
-    last_name?: true
-    login?: true
-    password?: true
-    email?: true
-    store_idstore?: true
-    _all?: true
-  }
-
-  export type UsersAggregateArgs = {
-    /**
-     * Filter which users to aggregate.
-     * 
-    **/
-    where?: usersWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of users to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<usersOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     * 
-    **/
-    cursor?: usersWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` users from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` users.
-     * 
-    **/
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned users
-    **/
-    _count?: true | UsersCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: UsersAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UsersSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: UsersMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: UsersMaxAggregateInputType
-  }
-
-  export type GetUsersAggregateType<T extends UsersAggregateArgs> = {
-        [P in keyof T & keyof AggregateUsers]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateUsers[P]>
-      : GetScalarType<T[P], AggregateUsers[P]>
-  }
-
-
-
-
-  export type UsersGroupByArgs = {
-    where?: usersWhereInput
-    orderBy?: Enumerable<usersOrderByWithAggregationInput>
-    by: Array<UsersScalarFieldEnum>
-    having?: usersScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: UsersCountAggregateInputType | true
-    _avg?: UsersAvgAggregateInputType
-    _sum?: UsersSumAggregateInputType
-    _min?: UsersMinAggregateInputType
-    _max?: UsersMaxAggregateInputType
-  }
-
-
-  export type UsersGroupByOutputType = {
-    idusers: number
-    name: string | null
-    last_name: string | null
-    login: string | null
-    password: string | null
-    email: string | null
-    store_idstore: number
-    _count: UsersCountAggregateOutputType | null
-    _avg: UsersAvgAggregateOutputType | null
-    _sum: UsersSumAggregateOutputType | null
-    _min: UsersMinAggregateOutputType | null
-    _max: UsersMaxAggregateOutputType | null
-  }
-
-  type GetUsersGroupByPayload<T extends UsersGroupByArgs> = PrismaPromise<
-    Array<
-      PickArray<UsersGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof UsersGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], UsersGroupByOutputType[P]>
-            : GetScalarType<T[P], UsersGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type usersSelect = {
-    idusers?: boolean
-    name?: boolean
-    last_name?: boolean
-    login?: boolean
-    password?: boolean
-    email?: boolean
-    store_idstore?: boolean
-    store?: boolean | storeArgs
-  }
-
-  export type usersInclude = {
-    store?: boolean | storeArgs
-  }
-
-  export type usersGetPayload<
-    S extends boolean | null | undefined | usersArgs,
-    U = keyof S
-      > = S extends true
-        ? users
-    : S extends undefined
-    ? never
-    : S extends usersArgs | usersFindManyArgs
-    ?'include' extends U
-    ? users  & {
-    [P in TrueKeys<S['include']>]:
-        P extends 'store' ? storeGetPayload<S['include'][P]> :  never
-  } 
-    : 'select' extends U
-    ? {
-    [P in TrueKeys<S['select']>]:
-        P extends 'store' ? storeGetPayload<S['select'][P]> :  P extends keyof users ? users[P] : never
-  } 
-    : users
-  : users
-
-
-  type usersCountArgs = Merge<
-    Omit<usersFindManyArgs, 'select' | 'include'> & {
-      select?: UsersCountAggregateInputType | true
-    }
-  >
-
-  export interface usersDelegate<GlobalRejectSettings> {
-    /**
-     * Find zero or one Users that matches the filter.
-     * @param {usersFindUniqueArgs} args - Arguments to find a Users
-     * @example
-     * // Get one Users
-     * const users = await prisma.users.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends usersFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args: SelectSubset<T, usersFindUniqueArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'users'> extends True ? CheckSelect<T, Prisma__usersClient<users>, Prisma__usersClient<usersGetPayload<T>>> : CheckSelect<T, Prisma__usersClient<users | null >, Prisma__usersClient<usersGetPayload<T> | null >>
-
-    /**
-     * Find the first Users that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {usersFindFirstArgs} args - Arguments to find a Users
-     * @example
-     * // Get one Users
-     * const users = await prisma.users.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends usersFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
-      args?: SelectSubset<T, usersFindFirstArgs>
-    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'users'> extends True ? CheckSelect<T, Prisma__usersClient<users>, Prisma__usersClient<usersGetPayload<T>>> : CheckSelect<T, Prisma__usersClient<users | null >, Prisma__usersClient<usersGetPayload<T> | null >>
-
-    /**
-     * Find zero or more Users that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {usersFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Users
-     * const users = await prisma.users.findMany()
-     * 
-     * // Get first 10 Users
-     * const users = await prisma.users.findMany({ take: 10 })
-     * 
-     * // Only select the `idusers`
-     * const usersWithIdusersOnly = await prisma.users.findMany({ select: { idusers: true } })
-     * 
-    **/
-    findMany<T extends usersFindManyArgs>(
-      args?: SelectSubset<T, usersFindManyArgs>
-    ): CheckSelect<T, PrismaPromise<Array<users>>, PrismaPromise<Array<usersGetPayload<T>>>>
-
-    /**
-     * Create a Users.
-     * @param {usersCreateArgs} args - Arguments to create a Users.
-     * @example
-     * // Create one Users
-     * const Users = await prisma.users.create({
-     *   data: {
-     *     // ... data to create a Users
-     *   }
-     * })
-     * 
-    **/
-    create<T extends usersCreateArgs>(
-      args: SelectSubset<T, usersCreateArgs>
-    ): CheckSelect<T, Prisma__usersClient<users>, Prisma__usersClient<usersGetPayload<T>>>
-
-    /**
-     * Create many Users.
-     *     @param {usersCreateManyArgs} args - Arguments to create many Users.
-     *     @example
-     *     // Create many Users
-     *     const users = await prisma.users.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends usersCreateManyArgs>(
-      args?: SelectSubset<T, usersCreateManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a Users.
-     * @param {usersDeleteArgs} args - Arguments to delete one Users.
-     * @example
-     * // Delete one Users
-     * const Users = await prisma.users.delete({
-     *   where: {
-     *     // ... filter to delete one Users
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends usersDeleteArgs>(
-      args: SelectSubset<T, usersDeleteArgs>
-    ): CheckSelect<T, Prisma__usersClient<users>, Prisma__usersClient<usersGetPayload<T>>>
-
-    /**
-     * Update one Users.
-     * @param {usersUpdateArgs} args - Arguments to update one Users.
-     * @example
-     * // Update one Users
-     * const users = await prisma.users.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends usersUpdateArgs>(
-      args: SelectSubset<T, usersUpdateArgs>
-    ): CheckSelect<T, Prisma__usersClient<users>, Prisma__usersClient<usersGetPayload<T>>>
-
-    /**
-     * Delete zero or more Users.
-     * @param {usersDeleteManyArgs} args - Arguments to filter Users to delete.
-     * @example
-     * // Delete a few Users
-     * const { count } = await prisma.users.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends usersDeleteManyArgs>(
-      args?: SelectSubset<T, usersDeleteManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Users.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {usersUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Users
-     * const users = await prisma.users.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends usersUpdateManyArgs>(
-      args: SelectSubset<T, usersUpdateManyArgs>
-    ): PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Users.
-     * @param {usersUpsertArgs} args - Arguments to update or create a Users.
-     * @example
-     * // Update or create a Users
-     * const users = await prisma.users.upsert({
-     *   create: {
-     *     // ... data to create a Users
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Users we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends usersUpsertArgs>(
-      args: SelectSubset<T, usersUpsertArgs>
-    ): CheckSelect<T, Prisma__usersClient<users>, Prisma__usersClient<usersGetPayload<T>>>
-
-    /**
-     * Count the number of Users.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {usersCountArgs} args - Arguments to filter Users to count.
-     * @example
-     * // Count the number of Users
-     * const count = await prisma.users.count({
-     *   where: {
-     *     // ... the filter for the Users we want to count
-     *   }
-     * })
-    **/
-    count<T extends usersCountArgs>(
-      args?: Subset<T, usersCountArgs>,
-    ): PrismaPromise<
-      T extends _Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], UsersCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Users.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends UsersAggregateArgs>(args: Subset<T, UsersAggregateArgs>): PrismaPromise<GetUsersAggregateType<T>>
-
-    /**
-     * Group by Users.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {UsersGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends UsersGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UsersGroupByArgs['orderBy'] }
-        : { orderBy?: UsersGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends TupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, UsersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUsersGroupByPayload<T> : PrismaPromise<InputErrors>
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for users.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export class Prisma__usersClient<T> implements PrismaPromise<T> {
-    [prisma]: true;
-    private readonly _dmmf;
-    private readonly _fetcher;
-    private readonly _queryType;
-    private readonly _rootField;
-    private readonly _clientMethod;
-    private readonly _args;
-    private readonly _dataPath;
-    private readonly _errorFormat;
-    private readonly _measurePerformance?;
-    private _isList;
-    private _callsite;
-    private _requestPromise?;
-    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
-    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
-
-    store<T extends storeArgs = {}>(args?: Subset<T, storeArgs>): CheckSelect<T, Prisma__storeClient<store | null >, Prisma__storeClient<storeGetPayload<T> | null >>;
-
-    private get _document();
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
-  }
-
-  // Custom InputTypes
-
-  /**
-   * users findUnique
-   */
-  export type usersFindUniqueArgs = {
-    /**
-     * Select specific fields to fetch from the users
-     * 
-    **/
-    select?: usersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: usersInclude | null
-    /**
-     * Throw an Error if a users can't be found
-     * 
-    **/
-    rejectOnNotFound?: RejectOnNotFound
-    /**
-     * Filter, which users to fetch.
-     * 
-    **/
-    where: usersWhereUniqueInput
-  }
-
-
-  /**
-   * users findFirst
-   */
-  export type usersFindFirstArgs = {
-    /**
-     * Select specific fields to fetch from the users
-     * 
-    **/
-    select?: usersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: usersInclude | null
-    /**
-     * Throw an Error if a users can't be found
-     * 
-    **/
-    rejectOnNotFound?: RejectOnNotFound
-    /**
-     * Filter, which users to fetch.
-     * 
-    **/
-    where?: usersWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of users to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<usersOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for users.
-     * 
-    **/
-    cursor?: usersWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` users from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` users.
-     * 
-    **/
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of users.
-     * 
-    **/
-    distinct?: Enumerable<UsersScalarFieldEnum>
-  }
-
-
-  /**
-   * users findMany
-   */
-  export type usersFindManyArgs = {
-    /**
-     * Select specific fields to fetch from the users
-     * 
-    **/
-    select?: usersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: usersInclude | null
-    /**
-     * Filter, which users to fetch.
-     * 
-    **/
-    where?: usersWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of users to fetch.
-     * 
-    **/
-    orderBy?: Enumerable<usersOrderByWithRelationInput>
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing users.
-     * 
-    **/
-    cursor?: usersWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` users from the position of the cursor.
-     * 
-    **/
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` users.
-     * 
-    **/
-    skip?: number
-    distinct?: Enumerable<UsersScalarFieldEnum>
-  }
-
-
-  /**
-   * users create
-   */
-  export type usersCreateArgs = {
-    /**
-     * Select specific fields to fetch from the users
-     * 
-    **/
-    select?: usersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: usersInclude | null
-    /**
-     * The data needed to create a users.
-     * 
-    **/
-    data: XOR<usersCreateInput, usersUncheckedCreateInput>
-  }
-
-
-  /**
-   * users createMany
-   */
-  export type usersCreateManyArgs = {
-    /**
-     * The data used to create many users.
-     * 
-    **/
-    data: Enumerable<usersCreateManyInput>
-    skipDuplicates?: boolean
-  }
-
-
-  /**
-   * users update
-   */
-  export type usersUpdateArgs = {
-    /**
-     * Select specific fields to fetch from the users
-     * 
-    **/
-    select?: usersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: usersInclude | null
-    /**
-     * The data needed to update a users.
-     * 
-    **/
-    data: XOR<usersUpdateInput, usersUncheckedUpdateInput>
-    /**
-     * Choose, which users to update.
-     * 
-    **/
-    where: usersWhereUniqueInput
-  }
-
-
-  /**
-   * users updateMany
-   */
-  export type usersUpdateManyArgs = {
-    /**
-     * The data used to update users.
-     * 
-    **/
-    data: XOR<usersUpdateManyMutationInput, usersUncheckedUpdateManyInput>
-    /**
-     * Filter which users to update
-     * 
-    **/
-    where?: usersWhereInput
-  }
-
-
-  /**
-   * users upsert
-   */
-  export type usersUpsertArgs = {
-    /**
-     * Select specific fields to fetch from the users
-     * 
-    **/
-    select?: usersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: usersInclude | null
-    /**
-     * The filter to search for the users to update in case it exists.
-     * 
-    **/
-    where: usersWhereUniqueInput
-    /**
-     * In case the users found by the `where` argument doesn't exist, create a new users with this data.
-     * 
-    **/
-    create: XOR<usersCreateInput, usersUncheckedCreateInput>
-    /**
-     * In case the users was found with the provided `where` argument, update it with this data.
-     * 
-    **/
-    update: XOR<usersUpdateInput, usersUncheckedUpdateInput>
-  }
-
-
-  /**
-   * users delete
-   */
-  export type usersDeleteArgs = {
-    /**
-     * Select specific fields to fetch from the users
-     * 
-    **/
-    select?: usersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: usersInclude | null
-    /**
-     * Filter which users to delete.
-     * 
-    **/
-    where: usersWhereUniqueInput
-  }
-
-
-  /**
-   * users deleteMany
-   */
-  export type usersDeleteManyArgs = {
-    /**
-     * Filter which users to delete
-     * 
-    **/
-    where?: usersWhereInput
-  }
-
-
-  /**
-   * users without action
-   */
-  export type usersArgs = {
-    /**
-     * Select specific fields to fetch from the users
-     * 
-    **/
-    select?: usersSelect | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     * 
-    **/
-    include?: usersInclude | null
-  }
-
-
-
-  /**
    * Model promotion
    */
 
@@ -5672,6 +4754,924 @@ export namespace Prisma {
 
 
   /**
+   * Model users
+   */
+
+
+  export type AggregateUsers = {
+    _count: UsersCountAggregateOutputType | null
+    _avg: UsersAvgAggregateOutputType | null
+    _sum: UsersSumAggregateOutputType | null
+    _min: UsersMinAggregateOutputType | null
+    _max: UsersMaxAggregateOutputType | null
+  }
+
+  export type UsersAvgAggregateOutputType = {
+    idusers: number | null
+    store_idstore: number | null
+  }
+
+  export type UsersSumAggregateOutputType = {
+    idusers: number | null
+    store_idstore: number | null
+  }
+
+  export type UsersMinAggregateOutputType = {
+    idusers: number | null
+    name: string | null
+    last_name: string | null
+    login: string | null
+    password: string | null
+    email: string | null
+    store_idstore: number | null
+  }
+
+  export type UsersMaxAggregateOutputType = {
+    idusers: number | null
+    name: string | null
+    last_name: string | null
+    login: string | null
+    password: string | null
+    email: string | null
+    store_idstore: number | null
+  }
+
+  export type UsersCountAggregateOutputType = {
+    idusers: number
+    name: number
+    last_name: number
+    login: number
+    password: number
+    email: number
+    store_idstore: number
+    _all: number
+  }
+
+
+  export type UsersAvgAggregateInputType = {
+    idusers?: true
+    store_idstore?: true
+  }
+
+  export type UsersSumAggregateInputType = {
+    idusers?: true
+    store_idstore?: true
+  }
+
+  export type UsersMinAggregateInputType = {
+    idusers?: true
+    name?: true
+    last_name?: true
+    login?: true
+    password?: true
+    email?: true
+    store_idstore?: true
+  }
+
+  export type UsersMaxAggregateInputType = {
+    idusers?: true
+    name?: true
+    last_name?: true
+    login?: true
+    password?: true
+    email?: true
+    store_idstore?: true
+  }
+
+  export type UsersCountAggregateInputType = {
+    idusers?: true
+    name?: true
+    last_name?: true
+    login?: true
+    password?: true
+    email?: true
+    store_idstore?: true
+    _all?: true
+  }
+
+  export type UsersAggregateArgs = {
+    /**
+     * Filter which users to aggregate.
+     * 
+    **/
+    where?: usersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of users to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<usersOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     * 
+    **/
+    cursor?: usersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` users from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` users.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned users
+    **/
+    _count?: true | UsersCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UsersAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UsersSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UsersMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UsersMaxAggregateInputType
+  }
+
+  export type GetUsersAggregateType<T extends UsersAggregateArgs> = {
+        [P in keyof T & keyof AggregateUsers]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUsers[P]>
+      : GetScalarType<T[P], AggregateUsers[P]>
+  }
+
+
+
+
+  export type UsersGroupByArgs = {
+    where?: usersWhereInput
+    orderBy?: Enumerable<usersOrderByWithAggregationInput>
+    by: Array<UsersScalarFieldEnum>
+    having?: usersScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UsersCountAggregateInputType | true
+    _avg?: UsersAvgAggregateInputType
+    _sum?: UsersSumAggregateInputType
+    _min?: UsersMinAggregateInputType
+    _max?: UsersMaxAggregateInputType
+  }
+
+
+  export type UsersGroupByOutputType = {
+    idusers: number
+    name: string | null
+    last_name: string | null
+    login: string | null
+    password: string | null
+    email: string | null
+    store_idstore: number
+    _count: UsersCountAggregateOutputType | null
+    _avg: UsersAvgAggregateOutputType | null
+    _sum: UsersSumAggregateOutputType | null
+    _min: UsersMinAggregateOutputType | null
+    _max: UsersMaxAggregateOutputType | null
+  }
+
+  type GetUsersGroupByPayload<T extends UsersGroupByArgs> = PrismaPromise<
+    Array<
+      PickArray<UsersGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UsersGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UsersGroupByOutputType[P]>
+            : GetScalarType<T[P], UsersGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type usersSelect = {
+    idusers?: boolean
+    name?: boolean
+    last_name?: boolean
+    login?: boolean
+    password?: boolean
+    email?: boolean
+    store_idstore?: boolean
+    store?: boolean | storeArgs
+  }
+
+  export type usersInclude = {
+    store?: boolean | storeArgs
+  }
+
+  export type usersGetPayload<
+    S extends boolean | null | undefined | usersArgs,
+    U = keyof S
+      > = S extends true
+        ? users
+    : S extends undefined
+    ? never
+    : S extends usersArgs | usersFindManyArgs
+    ?'include' extends U
+    ? users  & {
+    [P in TrueKeys<S['include']>]:
+        P extends 'store' ? storeGetPayload<S['include'][P]> :  never
+  } 
+    : 'select' extends U
+    ? {
+    [P in TrueKeys<S['select']>]:
+        P extends 'store' ? storeGetPayload<S['select'][P]> :  P extends keyof users ? users[P] : never
+  } 
+    : users
+  : users
+
+
+  type usersCountArgs = Merge<
+    Omit<usersFindManyArgs, 'select' | 'include'> & {
+      select?: UsersCountAggregateInputType | true
+    }
+  >
+
+  export interface usersDelegate<GlobalRejectSettings> {
+    /**
+     * Find zero or one Users that matches the filter.
+     * @param {usersFindUniqueArgs} args - Arguments to find a Users
+     * @example
+     * // Get one Users
+     * const users = await prisma.users.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends usersFindUniqueArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args: SelectSubset<T, usersFindUniqueArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findUnique', 'users'> extends True ? CheckSelect<T, Prisma__usersClient<users>, Prisma__usersClient<usersGetPayload<T>>> : CheckSelect<T, Prisma__usersClient<users | null >, Prisma__usersClient<usersGetPayload<T> | null >>
+
+    /**
+     * Find the first Users that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {usersFindFirstArgs} args - Arguments to find a Users
+     * @example
+     * // Get one Users
+     * const users = await prisma.users.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends usersFindFirstArgs,  LocalRejectSettings = T["rejectOnNotFound"] extends RejectOnNotFound ? T['rejectOnNotFound'] : undefined>(
+      args?: SelectSubset<T, usersFindFirstArgs>
+    ): HasReject<GlobalRejectSettings, LocalRejectSettings, 'findFirst', 'users'> extends True ? CheckSelect<T, Prisma__usersClient<users>, Prisma__usersClient<usersGetPayload<T>>> : CheckSelect<T, Prisma__usersClient<users | null >, Prisma__usersClient<usersGetPayload<T> | null >>
+
+    /**
+     * Find zero or more Users that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {usersFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Users
+     * const users = await prisma.users.findMany()
+     * 
+     * // Get first 10 Users
+     * const users = await prisma.users.findMany({ take: 10 })
+     * 
+     * // Only select the `idusers`
+     * const usersWithIdusersOnly = await prisma.users.findMany({ select: { idusers: true } })
+     * 
+    **/
+    findMany<T extends usersFindManyArgs>(
+      args?: SelectSubset<T, usersFindManyArgs>
+    ): CheckSelect<T, PrismaPromise<Array<users>>, PrismaPromise<Array<usersGetPayload<T>>>>
+
+    /**
+     * Create a Users.
+     * @param {usersCreateArgs} args - Arguments to create a Users.
+     * @example
+     * // Create one Users
+     * const Users = await prisma.users.create({
+     *   data: {
+     *     // ... data to create a Users
+     *   }
+     * })
+     * 
+    **/
+    create<T extends usersCreateArgs>(
+      args: SelectSubset<T, usersCreateArgs>
+    ): CheckSelect<T, Prisma__usersClient<users>, Prisma__usersClient<usersGetPayload<T>>>
+
+    /**
+     * Create many Users.
+     *     @param {usersCreateManyArgs} args - Arguments to create many Users.
+     *     @example
+     *     // Create many Users
+     *     const users = await prisma.users.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends usersCreateManyArgs>(
+      args?: SelectSubset<T, usersCreateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Users.
+     * @param {usersDeleteArgs} args - Arguments to delete one Users.
+     * @example
+     * // Delete one Users
+     * const Users = await prisma.users.delete({
+     *   where: {
+     *     // ... filter to delete one Users
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends usersDeleteArgs>(
+      args: SelectSubset<T, usersDeleteArgs>
+    ): CheckSelect<T, Prisma__usersClient<users>, Prisma__usersClient<usersGetPayload<T>>>
+
+    /**
+     * Update one Users.
+     * @param {usersUpdateArgs} args - Arguments to update one Users.
+     * @example
+     * // Update one Users
+     * const users = await prisma.users.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends usersUpdateArgs>(
+      args: SelectSubset<T, usersUpdateArgs>
+    ): CheckSelect<T, Prisma__usersClient<users>, Prisma__usersClient<usersGetPayload<T>>>
+
+    /**
+     * Delete zero or more Users.
+     * @param {usersDeleteManyArgs} args - Arguments to filter Users to delete.
+     * @example
+     * // Delete a few Users
+     * const { count } = await prisma.users.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends usersDeleteManyArgs>(
+      args?: SelectSubset<T, usersDeleteManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {usersUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Users
+     * const users = await prisma.users.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends usersUpdateManyArgs>(
+      args: SelectSubset<T, usersUpdateManyArgs>
+    ): PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Users.
+     * @param {usersUpsertArgs} args - Arguments to update or create a Users.
+     * @example
+     * // Update or create a Users
+     * const users = await prisma.users.upsert({
+     *   create: {
+     *     // ... data to create a Users
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Users we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends usersUpsertArgs>(
+      args: SelectSubset<T, usersUpsertArgs>
+    ): CheckSelect<T, Prisma__usersClient<users>, Prisma__usersClient<usersGetPayload<T>>>
+
+    /**
+     * Count the number of Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {usersCountArgs} args - Arguments to filter Users to count.
+     * @example
+     * // Count the number of Users
+     * const count = await prisma.users.count({
+     *   where: {
+     *     // ... the filter for the Users we want to count
+     *   }
+     * })
+    **/
+    count<T extends usersCountArgs>(
+      args?: Subset<T, usersCountArgs>,
+    ): PrismaPromise<
+      T extends _Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UsersCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsersAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UsersAggregateArgs>(args: Subset<T, UsersAggregateArgs>): PrismaPromise<GetUsersAggregateType<T>>
+
+    /**
+     * Group by Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UsersGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UsersGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UsersGroupByArgs['orderBy'] }
+        : { orderBy?: UsersGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends TupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UsersGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUsersGroupByPayload<T> : PrismaPromise<InputErrors>
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for users.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export class Prisma__usersClient<T> implements PrismaPromise<T> {
+    [prisma]: true;
+    private readonly _dmmf;
+    private readonly _fetcher;
+    private readonly _queryType;
+    private readonly _rootField;
+    private readonly _clientMethod;
+    private readonly _args;
+    private readonly _dataPath;
+    private readonly _errorFormat;
+    private readonly _measurePerformance?;
+    private _isList;
+    private _callsite;
+    private _requestPromise?;
+    constructor(_dmmf: runtime.DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+    readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+    store<T extends storeArgs = {}>(args?: Subset<T, storeArgs>): CheckSelect<T, Prisma__storeClient<store | null >, Prisma__storeClient<storeGetPayload<T> | null >>;
+
+    private get _document();
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+  }
+
+  // Custom InputTypes
+
+  /**
+   * users findUnique
+   */
+  export type usersFindUniqueArgs = {
+    /**
+     * Select specific fields to fetch from the users
+     * 
+    **/
+    select?: usersSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: usersInclude | null
+    /**
+     * Throw an Error if a users can't be found
+     * 
+    **/
+    rejectOnNotFound?: RejectOnNotFound
+    /**
+     * Filter, which users to fetch.
+     * 
+    **/
+    where: usersWhereUniqueInput
+  }
+
+
+  /**
+   * users findFirst
+   */
+  export type usersFindFirstArgs = {
+    /**
+     * Select specific fields to fetch from the users
+     * 
+    **/
+    select?: usersSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: usersInclude | null
+    /**
+     * Throw an Error if a users can't be found
+     * 
+    **/
+    rejectOnNotFound?: RejectOnNotFound
+    /**
+     * Filter, which users to fetch.
+     * 
+    **/
+    where?: usersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of users to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<usersOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for users.
+     * 
+    **/
+    cursor?: usersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` users from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` users.
+     * 
+    **/
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of users.
+     * 
+    **/
+    distinct?: Enumerable<UsersScalarFieldEnum>
+  }
+
+
+  /**
+   * users findMany
+   */
+  export type usersFindManyArgs = {
+    /**
+     * Select specific fields to fetch from the users
+     * 
+    **/
+    select?: usersSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: usersInclude | null
+    /**
+     * Filter, which users to fetch.
+     * 
+    **/
+    where?: usersWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of users to fetch.
+     * 
+    **/
+    orderBy?: Enumerable<usersOrderByWithRelationInput>
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing users.
+     * 
+    **/
+    cursor?: usersWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` users from the position of the cursor.
+     * 
+    **/
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` users.
+     * 
+    **/
+    skip?: number
+    distinct?: Enumerable<UsersScalarFieldEnum>
+  }
+
+
+  /**
+   * users create
+   */
+  export type usersCreateArgs = {
+    /**
+     * Select specific fields to fetch from the users
+     * 
+    **/
+    select?: usersSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: usersInclude | null
+    /**
+     * The data needed to create a users.
+     * 
+    **/
+    data: XOR<usersCreateInput, usersUncheckedCreateInput>
+  }
+
+
+  /**
+   * users createMany
+   */
+  export type usersCreateManyArgs = {
+    /**
+     * The data used to create many users.
+     * 
+    **/
+    data: Enumerable<usersCreateManyInput>
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * users update
+   */
+  export type usersUpdateArgs = {
+    /**
+     * Select specific fields to fetch from the users
+     * 
+    **/
+    select?: usersSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: usersInclude | null
+    /**
+     * The data needed to update a users.
+     * 
+    **/
+    data: XOR<usersUpdateInput, usersUncheckedUpdateInput>
+    /**
+     * Choose, which users to update.
+     * 
+    **/
+    where: usersWhereUniqueInput
+  }
+
+
+  /**
+   * users updateMany
+   */
+  export type usersUpdateManyArgs = {
+    /**
+     * The data used to update users.
+     * 
+    **/
+    data: XOR<usersUpdateManyMutationInput, usersUncheckedUpdateManyInput>
+    /**
+     * Filter which users to update
+     * 
+    **/
+    where?: usersWhereInput
+  }
+
+
+  /**
+   * users upsert
+   */
+  export type usersUpsertArgs = {
+    /**
+     * Select specific fields to fetch from the users
+     * 
+    **/
+    select?: usersSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: usersInclude | null
+    /**
+     * The filter to search for the users to update in case it exists.
+     * 
+    **/
+    where: usersWhereUniqueInput
+    /**
+     * In case the users found by the `where` argument doesn't exist, create a new users with this data.
+     * 
+    **/
+    create: XOR<usersCreateInput, usersUncheckedCreateInput>
+    /**
+     * In case the users was found with the provided `where` argument, update it with this data.
+     * 
+    **/
+    update: XOR<usersUpdateInput, usersUncheckedUpdateInput>
+  }
+
+
+  /**
+   * users delete
+   */
+  export type usersDeleteArgs = {
+    /**
+     * Select specific fields to fetch from the users
+     * 
+    **/
+    select?: usersSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: usersInclude | null
+    /**
+     * Filter which users to delete.
+     * 
+    **/
+    where: usersWhereUniqueInput
+  }
+
+
+  /**
+   * users deleteMany
+   */
+  export type usersDeleteManyArgs = {
+    /**
+     * Filter which users to delete
+     * 
+    **/
+    where?: usersWhereInput
+  }
+
+
+  /**
+   * users without action
+   */
+  export type usersArgs = {
+    /**
+     * Select specific fields to fetch from the users
+     * 
+    **/
+    select?: usersSelect | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     * 
+    **/
+    include?: usersInclude | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -5701,19 +5701,6 @@ export namespace Prisma {
   export type ProductTypeScalarFieldEnum = (typeof ProductTypeScalarFieldEnum)[keyof typeof ProductTypeScalarFieldEnum]
 
 
-  export const UsersScalarFieldEnum: {
-    idusers: 'idusers',
-    name: 'name',
-    last_name: 'last_name',
-    login: 'login',
-    password: 'password',
-    email: 'email',
-    store_idstore: 'store_idstore'
-  };
-
-  export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
-
-
   export const PromotionScalarFieldEnum: {
     idpromotion: 'idpromotion',
     name: 'name',
@@ -5741,6 +5728,19 @@ export namespace Prisma {
   };
 
   export type StoreScalarFieldEnum = (typeof StoreScalarFieldEnum)[keyof typeof StoreScalarFieldEnum]
+
+
+  export const UsersScalarFieldEnum: {
+    idusers: 'idusers',
+    name: 'name',
+    last_name: 'last_name',
+    login: 'login',
+    password: 'password',
+    email: 'email',
+    store_idstore: 'store_idstore'
+  };
+
+  export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5788,6 +5788,7 @@ export namespace Prisma {
   }
 
   export type productWhereUniqueInput = {
+    idproduct?: number
     idproduct_store_idstore_productType_idproduct_type_productType_store_idstore?: productIdproductStore_idstoreProductType_idproduct_typeProductType_store_idstoreCompoundUniqueInput
   }
 
@@ -5841,6 +5842,7 @@ export namespace Prisma {
   }
 
   export type productTypeWhereUniqueInput = {
+    idproduct_type?: number
     idproduct_type_store_idstore?: productTypeIdproduct_typeStore_idstoreCompoundUniqueInput
   }
 
@@ -5861,63 +5863,6 @@ export namespace Prisma {
     NOT?: Enumerable<productTypeScalarWhereWithAggregatesInput>
     idproduct_type?: IntWithAggregatesFilter | number
     name?: StringNullableWithAggregatesFilter | string | null
-    store_idstore?: IntWithAggregatesFilter | number
-  }
-
-  export type usersWhereInput = {
-    AND?: Enumerable<usersWhereInput>
-    OR?: Enumerable<usersWhereInput>
-    NOT?: Enumerable<usersWhereInput>
-    idusers?: IntFilter | number
-    name?: StringNullableFilter | string | null
-    last_name?: StringNullableFilter | string | null
-    login?: StringNullableFilter | string | null
-    password?: StringNullableFilter | string | null
-    email?: StringNullableFilter | string | null
-    store_idstore?: IntFilter | number
-    store?: XOR<StoreRelationFilter, storeWhereInput>
-  }
-
-  export type usersOrderByWithRelationInput = {
-    idusers?: SortOrder
-    name?: SortOrder
-    last_name?: SortOrder
-    login?: SortOrder
-    password?: SortOrder
-    email?: SortOrder
-    store_idstore?: SortOrder
-    store?: storeOrderByWithRelationInput
-  }
-
-  export type usersWhereUniqueInput = {
-    idusers_store_idstore?: usersIdusersStore_idstoreCompoundUniqueInput
-  }
-
-  export type usersOrderByWithAggregationInput = {
-    idusers?: SortOrder
-    name?: SortOrder
-    last_name?: SortOrder
-    login?: SortOrder
-    password?: SortOrder
-    email?: SortOrder
-    store_idstore?: SortOrder
-    _count?: usersCountOrderByAggregateInput
-    _avg?: usersAvgOrderByAggregateInput
-    _max?: usersMaxOrderByAggregateInput
-    _min?: usersMinOrderByAggregateInput
-    _sum?: usersSumOrderByAggregateInput
-  }
-
-  export type usersScalarWhereWithAggregatesInput = {
-    AND?: Enumerable<usersScalarWhereWithAggregatesInput>
-    OR?: Enumerable<usersScalarWhereWithAggregatesInput>
-    NOT?: Enumerable<usersScalarWhereWithAggregatesInput>
-    idusers?: IntWithAggregatesFilter | number
-    name?: StringNullableWithAggregatesFilter | string | null
-    last_name?: StringNullableWithAggregatesFilter | string | null
-    login?: StringNullableWithAggregatesFilter | string | null
-    password?: StringNullableWithAggregatesFilter | string | null
-    email?: StringNullableWithAggregatesFilter | string | null
     store_idstore?: IntWithAggregatesFilter | number
   }
 
@@ -5951,6 +5896,7 @@ export namespace Prisma {
   }
 
   export type promotionWhereUniqueInput = {
+    idpromotion?: number
     idpromotion_store_idstore_product_idproduct_product_store_idstore?: promotionIdpromotionStore_idstoreProduct_idproductProduct_store_idstoreCompoundUniqueInput
   }
 
@@ -6055,6 +6001,64 @@ export namespace Prisma {
     address?: StringNullableWithAggregatesFilter | string | null
   }
 
+  export type usersWhereInput = {
+    AND?: Enumerable<usersWhereInput>
+    OR?: Enumerable<usersWhereInput>
+    NOT?: Enumerable<usersWhereInput>
+    idusers?: IntFilter | number
+    name?: StringNullableFilter | string | null
+    last_name?: StringNullableFilter | string | null
+    login?: StringNullableFilter | string | null
+    password?: StringNullableFilter | string | null
+    email?: StringNullableFilter | string | null
+    store_idstore?: IntFilter | number
+    store?: XOR<StoreRelationFilter, storeWhereInput>
+  }
+
+  export type usersOrderByWithRelationInput = {
+    idusers?: SortOrder
+    name?: SortOrder
+    last_name?: SortOrder
+    login?: SortOrder
+    password?: SortOrder
+    email?: SortOrder
+    store_idstore?: SortOrder
+    store?: storeOrderByWithRelationInput
+  }
+
+  export type usersWhereUniqueInput = {
+    idusers?: number
+    idusers_store_idstore?: usersIdusersStore_idstoreCompoundUniqueInput
+  }
+
+  export type usersOrderByWithAggregationInput = {
+    idusers?: SortOrder
+    name?: SortOrder
+    last_name?: SortOrder
+    login?: SortOrder
+    password?: SortOrder
+    email?: SortOrder
+    store_idstore?: SortOrder
+    _count?: usersCountOrderByAggregateInput
+    _avg?: usersAvgOrderByAggregateInput
+    _max?: usersMaxOrderByAggregateInput
+    _min?: usersMinOrderByAggregateInput
+    _sum?: usersSumOrderByAggregateInput
+  }
+
+  export type usersScalarWhereWithAggregatesInput = {
+    AND?: Enumerable<usersScalarWhereWithAggregatesInput>
+    OR?: Enumerable<usersScalarWhereWithAggregatesInput>
+    NOT?: Enumerable<usersScalarWhereWithAggregatesInput>
+    idusers?: IntWithAggregatesFilter | number
+    name?: StringNullableWithAggregatesFilter | string | null
+    last_name?: StringNullableWithAggregatesFilter | string | null
+    login?: StringNullableWithAggregatesFilter | string | null
+    password?: StringNullableWithAggregatesFilter | string | null
+    email?: StringNullableWithAggregatesFilter | string | null
+    store_idstore?: IntWithAggregatesFilter | number
+  }
+
   export type productCreateInput = {
     idproduct?: number
     description?: string | null
@@ -6079,7 +6083,6 @@ export namespace Prisma {
   }
 
   export type productUpdateInput = {
-    idproduct?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6113,7 +6116,6 @@ export namespace Prisma {
   }
 
   export type productUpdateManyMutationInput = {
-    idproduct?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6146,7 +6148,6 @@ export namespace Prisma {
   }
 
   export type productTypeUpdateInput = {
-    idproduct_type?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
     store?: storeUpdateOneRequiredWithoutProductTypeInput
     product?: productUpdateManyWithoutProductTypeInput
@@ -6166,82 +6167,12 @@ export namespace Prisma {
   }
 
   export type productTypeUpdateManyMutationInput = {
-    idproduct_type?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type productTypeUncheckedUpdateManyInput = {
     idproduct_type?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    store_idstore?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type usersCreateInput = {
-    idusers: number
-    name?: string | null
-    last_name?: string | null
-    login?: string | null
-    password?: string | null
-    email?: string | null
-    store: storeCreateNestedOneWithoutUsersInput
-  }
-
-  export type usersUncheckedCreateInput = {
-    idusers: number
-    name?: string | null
-    last_name?: string | null
-    login?: string | null
-    password?: string | null
-    email?: string | null
-    store_idstore: number
-  }
-
-  export type usersUpdateInput = {
-    idusers?: IntFieldUpdateOperationsInput | number
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
-    login?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    store?: storeUpdateOneRequiredWithoutUsersInput
-  }
-
-  export type usersUncheckedUpdateInput = {
-    idusers?: IntFieldUpdateOperationsInput | number
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
-    login?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    store_idstore?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type usersCreateManyInput = {
-    idusers: number
-    name?: string | null
-    last_name?: string | null
-    login?: string | null
-    password?: string | null
-    email?: string | null
-    store_idstore: number
-  }
-
-  export type usersUpdateManyMutationInput = {
-    idusers?: IntFieldUpdateOperationsInput | number
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
-    login?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type usersUncheckedUpdateManyInput = {
-    idusers?: IntFieldUpdateOperationsInput | number
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    last_name?: NullableStringFieldUpdateOperationsInput | string | null
-    login?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
     store_idstore?: IntFieldUpdateOperationsInput | number
   }
 
@@ -6267,7 +6198,6 @@ export namespace Prisma {
   }
 
   export type promotionUpdateInput = {
-    idpromotion?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     active?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6299,7 +6229,6 @@ export namespace Prisma {
   }
 
   export type promotionUpdateManyMutationInput = {
-    idpromotion?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     active?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6412,6 +6341,73 @@ export namespace Prisma {
     logo_image?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type usersCreateInput = {
+    idusers?: number
+    name?: string | null
+    last_name?: string | null
+    login?: string | null
+    password?: string | null
+    email?: string | null
+    store: storeCreateNestedOneWithoutUsersInput
+  }
+
+  export type usersUncheckedCreateInput = {
+    idusers?: number
+    name?: string | null
+    last_name?: string | null
+    login?: string | null
+    password?: string | null
+    email?: string | null
+    store_idstore: number
+  }
+
+  export type usersUpdateInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    login?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    store?: storeUpdateOneRequiredWithoutUsersInput
+  }
+
+  export type usersUncheckedUpdateInput = {
+    idusers?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    login?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    store_idstore?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type usersCreateManyInput = {
+    idusers?: number
+    name?: string | null
+    last_name?: string | null
+    login?: string | null
+    password?: string | null
+    email?: string | null
+    store_idstore: number
+  }
+
+  export type usersUpdateManyMutationInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    login?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type usersUncheckedUpdateManyInput = {
+    idusers?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    last_name?: NullableStringFieldUpdateOperationsInput | string | null
+    login?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    store_idstore?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter = {
@@ -6618,51 +6614,6 @@ export namespace Prisma {
     store_idstore?: SortOrder
   }
 
-  export type usersIdusersStore_idstoreCompoundUniqueInput = {
-    idusers: number
-    store_idstore: number
-  }
-
-  export type usersCountOrderByAggregateInput = {
-    idusers?: SortOrder
-    name?: SortOrder
-    last_name?: SortOrder
-    login?: SortOrder
-    password?: SortOrder
-    email?: SortOrder
-    store_idstore?: SortOrder
-  }
-
-  export type usersAvgOrderByAggregateInput = {
-    idusers?: SortOrder
-    store_idstore?: SortOrder
-  }
-
-  export type usersMaxOrderByAggregateInput = {
-    idusers?: SortOrder
-    name?: SortOrder
-    last_name?: SortOrder
-    login?: SortOrder
-    password?: SortOrder
-    email?: SortOrder
-    store_idstore?: SortOrder
-  }
-
-  export type usersMinOrderByAggregateInput = {
-    idusers?: SortOrder
-    name?: SortOrder
-    last_name?: SortOrder
-    login?: SortOrder
-    password?: SortOrder
-    email?: SortOrder
-    store_idstore?: SortOrder
-  }
-
-  export type usersSumOrderByAggregateInput = {
-    idusers?: SortOrder
-    store_idstore?: SortOrder
-  }
-
   export type ProductRelationFilter = {
     is?: productWhereInput
     isNot?: productWhereInput
@@ -6813,6 +6764,51 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter
   }
 
+  export type usersIdusersStore_idstoreCompoundUniqueInput = {
+    idusers: number
+    store_idstore: number
+  }
+
+  export type usersCountOrderByAggregateInput = {
+    idusers?: SortOrder
+    name?: SortOrder
+    last_name?: SortOrder
+    login?: SortOrder
+    password?: SortOrder
+    email?: SortOrder
+    store_idstore?: SortOrder
+  }
+
+  export type usersAvgOrderByAggregateInput = {
+    idusers?: SortOrder
+    store_idstore?: SortOrder
+  }
+
+  export type usersMaxOrderByAggregateInput = {
+    idusers?: SortOrder
+    name?: SortOrder
+    last_name?: SortOrder
+    login?: SortOrder
+    password?: SortOrder
+    email?: SortOrder
+    store_idstore?: SortOrder
+  }
+
+  export type usersMinOrderByAggregateInput = {
+    idusers?: SortOrder
+    name?: SortOrder
+    last_name?: SortOrder
+    login?: SortOrder
+    password?: SortOrder
+    email?: SortOrder
+    store_idstore?: SortOrder
+  }
+
+  export type usersSumOrderByAggregateInput = {
+    idusers?: SortOrder
+    store_idstore?: SortOrder
+  }
+
   export type productTypeCreateNestedOneWithoutProductInput = {
     create?: XOR<productTypeCreateWithoutProductInput, productTypeUncheckedCreateWithoutProductInput>
     connectOrCreate?: productTypeCreateOrConnectWithoutProductInput
@@ -6837,14 +6833,6 @@ export namespace Prisma {
     connectOrCreate?: Enumerable<promotionCreateOrConnectWithoutProductInput>
     createMany?: promotionCreateManyProductInputEnvelope
     connect?: Enumerable<promotionWhereUniqueInput>
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -6887,6 +6875,14 @@ export namespace Prisma {
     update?: Enumerable<promotionUpdateWithWhereUniqueWithoutProductInput>
     updateMany?: Enumerable<promotionUpdateManyWithWhereWithoutProductInput>
     deleteMany?: Enumerable<promotionScalarWhereInput>
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type promotionUncheckedUpdateManyWithoutProductInput = {
@@ -6957,20 +6953,6 @@ export namespace Prisma {
     update?: Enumerable<productUpdateWithWhereUniqueWithoutProductTypeInput>
     updateMany?: Enumerable<productUpdateManyWithWhereWithoutProductTypeInput>
     deleteMany?: Enumerable<productScalarWhereInput>
-  }
-
-  export type storeCreateNestedOneWithoutUsersInput = {
-    create?: XOR<storeCreateWithoutUsersInput, storeUncheckedCreateWithoutUsersInput>
-    connectOrCreate?: storeCreateOrConnectWithoutUsersInput
-    connect?: storeWhereUniqueInput
-  }
-
-  export type storeUpdateOneRequiredWithoutUsersInput = {
-    create?: XOR<storeCreateWithoutUsersInput, storeUncheckedCreateWithoutUsersInput>
-    connectOrCreate?: storeCreateOrConnectWithoutUsersInput
-    upsert?: storeUpsertWithoutUsersInput
-    connect?: storeWhereUniqueInput
-    update?: XOR<storeUpdateWithoutUsersInput, storeUncheckedUpdateWithoutUsersInput>
   }
 
   export type productCreateNestedOneWithoutPromotionInput = {
@@ -7171,6 +7153,20 @@ export namespace Prisma {
     update?: Enumerable<usersUpdateWithWhereUniqueWithoutStoreInput>
     updateMany?: Enumerable<usersUpdateManyWithWhereWithoutStoreInput>
     deleteMany?: Enumerable<usersScalarWhereInput>
+  }
+
+  export type storeCreateNestedOneWithoutUsersInput = {
+    create?: XOR<storeCreateWithoutUsersInput, storeUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: storeCreateOrConnectWithoutUsersInput
+    connect?: storeWhereUniqueInput
+  }
+
+  export type storeUpdateOneRequiredWithoutUsersInput = {
+    create?: XOR<storeCreateWithoutUsersInput, storeUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: storeCreateOrConnectWithoutUsersInput
+    upsert?: storeUpsertWithoutUsersInput
+    connect?: storeWhereUniqueInput
+    update?: XOR<storeUpdateWithoutUsersInput, storeUncheckedUpdateWithoutUsersInput>
   }
 
   export type NestedIntFilter = {
@@ -7390,7 +7386,6 @@ export namespace Prisma {
   }
 
   export type productTypeUpdateWithoutProductInput = {
-    idproduct_type?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
     store?: storeUpdateOneRequiredWithoutProductTypeInput
   }
@@ -7593,74 +7588,6 @@ export namespace Prisma {
     productType_store_idstore?: IntFilter | number
   }
 
-  export type storeCreateWithoutUsersInput = {
-    name?: string | null
-    description?: string | null
-    open?: Date | string | null
-    closed?: Date | string | null
-    featured_image?: string | null
-    logo_image?: string | null
-    slug?: string | null
-    address?: string | null
-    product?: productCreateNestedManyWithoutStoreInput
-    productType?: productTypeCreateNestedManyWithoutStoreInput
-    promotion?: promotionCreateNestedManyWithoutStoreInput
-  }
-
-  export type storeUncheckedCreateWithoutUsersInput = {
-    idstore?: number
-    name?: string | null
-    description?: string | null
-    open?: Date | string | null
-    closed?: Date | string | null
-    featured_image?: string | null
-    logo_image?: string | null
-    slug?: string | null
-    address?: string | null
-    product?: productUncheckedCreateNestedManyWithoutStoreInput
-    productType?: productTypeUncheckedCreateNestedManyWithoutStoreInput
-    promotion?: promotionUncheckedCreateNestedManyWithoutStoreInput
-  }
-
-  export type storeCreateOrConnectWithoutUsersInput = {
-    where: storeWhereUniqueInput
-    create: XOR<storeCreateWithoutUsersInput, storeUncheckedCreateWithoutUsersInput>
-  }
-
-  export type storeUpsertWithoutUsersInput = {
-    update: XOR<storeUpdateWithoutUsersInput, storeUncheckedUpdateWithoutUsersInput>
-    create: XOR<storeCreateWithoutUsersInput, storeUncheckedCreateWithoutUsersInput>
-  }
-
-  export type storeUpdateWithoutUsersInput = {
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    open?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    closed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    featured_image?: NullableStringFieldUpdateOperationsInput | string | null
-    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
-    slug?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    product?: productUpdateManyWithoutStoreInput
-    productType?: productTypeUpdateManyWithoutStoreInput
-    promotion?: promotionUpdateManyWithoutStoreInput
-  }
-
-  export type storeUncheckedUpdateWithoutUsersInput = {
-    idstore?: IntFieldUpdateOperationsInput | number
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    open?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    closed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    featured_image?: NullableStringFieldUpdateOperationsInput | string | null
-    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
-    slug?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    product?: productUncheckedUpdateManyWithoutStoreInput
-    productType?: productTypeUncheckedUpdateManyWithoutStoreInput
-    promotion?: promotionUncheckedUpdateManyWithoutStoreInput
-  }
-
   export type productCreateWithoutPromotionInput = {
     idproduct?: number
     description?: string | null
@@ -7727,7 +7654,6 @@ export namespace Prisma {
   }
 
   export type productUpdateWithoutPromotionInput = {
-    idproduct?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7864,7 +7790,7 @@ export namespace Prisma {
   }
 
   export type usersCreateWithoutStoreInput = {
-    idusers: number
+    idusers?: number
     name?: string | null
     last_name?: string | null
     login?: string | null
@@ -7873,7 +7799,7 @@ export namespace Prisma {
   }
 
   export type usersUncheckedCreateWithoutStoreInput = {
-    idusers: number
+    idusers?: number
     name?: string | null
     last_name?: string | null
     login?: string | null
@@ -7977,6 +7903,74 @@ export namespace Prisma {
     store_idstore?: IntFilter | number
   }
 
+  export type storeCreateWithoutUsersInput = {
+    name?: string | null
+    description?: string | null
+    open?: Date | string | null
+    closed?: Date | string | null
+    featured_image?: string | null
+    logo_image?: string | null
+    slug?: string | null
+    address?: string | null
+    product?: productCreateNestedManyWithoutStoreInput
+    productType?: productTypeCreateNestedManyWithoutStoreInput
+    promotion?: promotionCreateNestedManyWithoutStoreInput
+  }
+
+  export type storeUncheckedCreateWithoutUsersInput = {
+    idstore?: number
+    name?: string | null
+    description?: string | null
+    open?: Date | string | null
+    closed?: Date | string | null
+    featured_image?: string | null
+    logo_image?: string | null
+    slug?: string | null
+    address?: string | null
+    product?: productUncheckedCreateNestedManyWithoutStoreInput
+    productType?: productTypeUncheckedCreateNestedManyWithoutStoreInput
+    promotion?: promotionUncheckedCreateNestedManyWithoutStoreInput
+  }
+
+  export type storeCreateOrConnectWithoutUsersInput = {
+    where: storeWhereUniqueInput
+    create: XOR<storeCreateWithoutUsersInput, storeUncheckedCreateWithoutUsersInput>
+  }
+
+  export type storeUpsertWithoutUsersInput = {
+    update: XOR<storeUpdateWithoutUsersInput, storeUncheckedUpdateWithoutUsersInput>
+    create: XOR<storeCreateWithoutUsersInput, storeUncheckedCreateWithoutUsersInput>
+  }
+
+  export type storeUpdateWithoutUsersInput = {
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    open?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    featured_image?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    product?: productUpdateManyWithoutStoreInput
+    productType?: productTypeUpdateManyWithoutStoreInput
+    promotion?: promotionUpdateManyWithoutStoreInput
+  }
+
+  export type storeUncheckedUpdateWithoutUsersInput = {
+    idstore?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    open?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    closed?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    featured_image?: NullableStringFieldUpdateOperationsInput | string | null
+    logo_image?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    product?: productUncheckedUpdateManyWithoutStoreInput
+    productType?: productTypeUncheckedUpdateManyWithoutStoreInput
+    promotion?: promotionUncheckedUpdateManyWithoutStoreInput
+  }
+
   export type promotionCreateManyProductInput = {
     idpromotion?: number
     name?: string | null
@@ -7987,7 +7981,6 @@ export namespace Prisma {
   }
 
   export type promotionUpdateWithoutProductInput = {
-    idpromotion?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     active?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8023,7 +8016,6 @@ export namespace Prisma {
   }
 
   export type productUpdateWithoutProductTypeInput = {
-    idproduct?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8077,7 +8069,7 @@ export namespace Prisma {
   }
 
   export type usersCreateManyStoreInput = {
-    idusers: number
+    idusers?: number
     name?: string | null
     last_name?: string | null
     login?: string | null
@@ -8086,7 +8078,6 @@ export namespace Prisma {
   }
 
   export type productUpdateWithoutStoreInput = {
-    idproduct?: IntFieldUpdateOperationsInput | number
     description?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8107,7 +8098,6 @@ export namespace Prisma {
   }
 
   export type productTypeUpdateWithoutStoreInput = {
-    idproduct_type?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
     product?: productUpdateManyWithoutProductTypeInput
   }
@@ -8124,7 +8114,6 @@ export namespace Prisma {
   }
 
   export type promotionUpdateWithoutStoreInput = {
-    idpromotion?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     active?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8143,7 +8132,6 @@ export namespace Prisma {
   }
 
   export type usersUpdateWithoutStoreInput = {
-    idusers?: IntFieldUpdateOperationsInput | number
     name?: NullableStringFieldUpdateOperationsInput | string | null
     last_name?: NullableStringFieldUpdateOperationsInput | string | null
     login?: NullableStringFieldUpdateOperationsInput | string | null
