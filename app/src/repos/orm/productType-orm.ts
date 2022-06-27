@@ -22,7 +22,7 @@ const getAllProductType = async function () : Promise<IProductType[] | null>
 
 const getOneProductType = async function ( id: number ) : Promise<IProductType | null>
 {
-    const productTypeQuery = await prisma.productType.findUnique({
+    const productTypeQuery = await prisma.productType.findFirst({
         where: {
             idproduct_type: id,
         },
