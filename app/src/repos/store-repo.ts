@@ -57,16 +57,13 @@ async function getAll(): Promise<IStore[] | null> {
 
 
 /**
- * Add one user.
+ * Add one store.
  * 
- * @param user 
+ * @param store 
  * @returns 
  */
-async function add(user: IUser): Promise<void> {
-    const db = await orm.openDb();
-    user.idusers = getRandomInt();
-    db.users.push(user);
-    return orm.saveDb(db);
+async function add(store: any){
+    return await prisma.add( store );
 }
 
 

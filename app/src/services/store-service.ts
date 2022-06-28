@@ -18,11 +18,11 @@ function getAll(): Promise<IStore[] | null> {
 /**
  * Add one user.
  * 
- * @param user 
+ * @param store 
  * @returns 
  */
-function addOne(user: IUser): Promise<void> {
-    return userRepo.add(user);
+function addOne(store: any){
+    return storeRepo.add(store);
 }
 
 
