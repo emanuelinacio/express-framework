@@ -3,6 +3,15 @@ import promotion, { IPromotion } from '@models/promotion-model';
 
 const prisma = new PrismaClient();
 
+const add = async function (promotionAdd:IPromotion) 
+{
+    const insert = await prisma.promotion.create({ 
+        data: promotionAdd
+    });
+
+    return insert;
+}
+
 const getAllPromotions = async function () : Promise<IPromotion[] | null>
 {
     const promotions = await prisma.promotion.findMany();
@@ -52,6 +61,7 @@ const getOnePromotion = async function ( id: number ) : Promise<IPromotion | nul
 }
 
 export default {
+    add,
     getAllPromotions,
     getOnePromotion
 } as const

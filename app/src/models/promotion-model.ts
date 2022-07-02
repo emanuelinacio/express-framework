@@ -11,7 +11,6 @@ export interface IPromotion {
     store_idstore: number;
 }
 
-
 /**
  * Get a new Promotion object.
  * 

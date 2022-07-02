@@ -16,13 +16,13 @@ function getAll(): Promise<IPromotion[] | null> {
 
 
 /**
- * Add one user.
+ * Add one promotion.
  * 
  * @param user 
  * @returns 
  */
-function addOne(user: IUser) {
-    return userRepo.add(user);
+function addOne(promotion: any) {
+    return promotionRepo.add(promotion);
 }
 
 

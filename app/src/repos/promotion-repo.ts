@@ -57,16 +57,13 @@ async function getAll(): Promise<IPromotion[] | null> {
 
 
 /**
- * Add one user.
+ * Add one promotion.
  * 
- * @param user 
+ * @param promotion 
  * @returns 
  */
-async function add(user: IUser): Promise<void> {
-    const db = await orm.openDb();
-    user.idusers = getRandomInt();
-    db.users.push(user);
-    return orm.saveDb(db);
+async function add(promotion: any){
+    return await prisma.add( promotion );
 }
 
 

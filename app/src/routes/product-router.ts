@@ -22,9 +22,6 @@ export const p = {
  * Get all users.
  */
 router.get(p.get, async (_: Request, res: Response) => {
-
-    console.log( 'dentro product' );
-
     const product = await productService.getAll();
     return res.status(OK).json({product});
 });
@@ -54,8 +51,6 @@ router.post(p.add, async (req: Request, res: Response) => {
             }
         },
     }
-
-    console.log( newProduct );
 
     // Fetch data
     await productService.addOne(newProduct);

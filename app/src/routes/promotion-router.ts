@@ -28,18 +28,34 @@ router.get(p.get, async (_: Request, res: Response) => {
     return res.status(OK).json({promotions});
 });
 
-
 /**
  * Add one user.
  */
 router.post(p.add, async (req: Request, res: Response) => {
-    const { user } = req.body;
-    // Check param
-    if (!user) {
-        throw new ParamMissingError();
+
+    const paramStore = req.body.store_idstore !== null ? req.body.store_idstore : 0;
+    const price = req.body.price !== null ? req.body.price : 0;
+    const paramProduct = req.body.idproduct !== null ? req.body.idproduct : 0;
+
+    const newPromotion = { 
+        name: req.body.name !== null ? req.body.name : '',
+        description: req.body.description !== null ? req.body.description : '',
+        active: req.body.active !== null ? req.body.active : '',
+        price: parseInt( price ),
+        store: { 
+            connect:{
+                idstore: parseInt( paramStore )
+            }
+        },
+        product: { 
+            connect:{
+                idproduct: parseInt( paramProduct )
+            }
+        }
     }
+
     // Fetch data
-    await userService.addOne(user);
+    await promotionService.addOne(newPromotion);
     return res.status(CREATED).end();
 });
 
