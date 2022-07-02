@@ -78,11 +78,8 @@ async function getAll(): Promise<IUser[] | null> {
  * @param user 
  * @returns 
  */
-async function add(user: IUser): Promise<void> {
-    const db = await orm.openDb();
-    user.idusers = getRandomInt();
-    db.users.push(user);
-    return orm.saveDb(db);
+async function add(user: IUser) {
+    return await prisma.add( user );
 }
 
 

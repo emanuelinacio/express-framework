@@ -15,13 +15,13 @@ function getAll(): Promise<IProduct[] | null> {
 
 
 /**
- * Add one user.
+ * Add one product.
  * 
- * @param user 
+ * @param product 
  * @returns 
  */
-function addOne(user: IUser): Promise<void> {
-    return userRepo.add(user);
+function addOne(product: any) {
+    return productRepo.add(product);
 }
 
 

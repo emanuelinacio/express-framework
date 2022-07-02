@@ -5,23 +5,9 @@ const prisma = new PrismaClient();
 
 const add = async function (storeAdd:IStore) 
 {
-    /*const newStore = store.new( 
-        0,    
-        storeAdd.name !== null ? storeAdd.name : '',
-        storeAdd.description !== null ? storeAdd.description : '',
-        storeAdd.featured_image !== null ? storeAdd.featured_image : '',
-        storeAdd.logo_image !== null ? storeAdd.logo_image : '',
-        storeAdd.slug !== null ? storeAdd.slug : '',
-        storeAdd.address !== null ? storeAdd.address : '',
-        storeAdd.open !== null ? storeAdd.open : new Date("2000-00-00T00:00:00"),
-        storeAdd.closed !== null ? storeAdd.closed : new Date("2000-00-00T00:00:00"),
-    );*/
-
     const insert = await prisma.store.create({ 
         data: storeAdd
     });
-
-    console.log( insert );
 
     return insert;
 }

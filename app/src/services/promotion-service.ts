@@ -21,7 +21,7 @@ function getAll(): Promise<IPromotion[] | null> {
  * @param user 
  * @returns 
  */
-function addOne(user: IUser): Promise<void> {
+function addOne(user: IUser) {
     return userRepo.add(user);
 }
 

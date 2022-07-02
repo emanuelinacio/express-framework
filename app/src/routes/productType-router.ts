@@ -24,8 +24,6 @@ export const p = {
  */
 router.get(p.get, async (_: Request, res: Response) => {
 
-    console.log( 'dentro product type' );
-
     const productType = await productTypeService.getAll();
     return res.status(OK).json({productType});
 });
@@ -35,13 +33,19 @@ router.get(p.get, async (_: Request, res: Response) => {
  * Add one user.
  */
 router.post(p.add, async (req: Request, res: Response) => {
-    const { user } = req.body;
-    // Check param
-    if (!user) {
-        throw new ParamMissingError();
+
+    const paramStore = req.body.store_idstore !== null ? req.body.store_idstore : 0;
+    const productType = { 
+        name: req.body.name !== null ? req.body.name : '',
+        store: { 
+            connect:{
+                idstore: parseInt( paramStore )
+            }
+        },
     }
+
     // Fetch data
-    await productTypeService.addOne(user);
+    await productTypeService.addOne(productType);
     return res.status(CREATED).end();
 });
 

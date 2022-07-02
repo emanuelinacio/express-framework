@@ -3,6 +3,15 @@ import User, { IUser } from '@models/user-model';
 
 const prisma = new PrismaClient();
 
+const add = async function (userAdd:IUser) 
+{
+    const insert = await prisma.users.create({ 
+        data: userAdd
+    });
+
+    return insert;
+}
+
 const getAllUsers = async function () : Promise<IUser[] | null>
 {
     const users = await prisma.users.findMany();
@@ -72,6 +81,7 @@ const getUserByEmail = async function ( emailSearch: string ) : Promise<IUser | 
 }
 
 export default {
+    add,
     getAllUsers,
     getUserByEmail,
     getOneUser

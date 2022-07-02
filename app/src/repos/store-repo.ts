@@ -13,7 +13,7 @@ import prisma from './orm/store-orm';
  */
 async function getOne(id: number): Promise<IStore | null> {
 
-    const getUsersQuery = await prisma.getOneStore( 1 );
+    const getUsersQuery = await prisma.getOneStore( id );
 
     if ( getUsersQuery ) {
         return getUsersQuery;

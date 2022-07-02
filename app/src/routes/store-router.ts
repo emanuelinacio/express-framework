@@ -4,8 +4,6 @@ import storeService from '@services/store-service';
 import userService from '@services/user-service';
 import { ParamMissingError } from '@shared/errors';
 
-import store, { IStore } from '@models/store-model';
-
 // Constants
 const router = Router();
 const { CREATED, OK } = StatusCodes;
@@ -33,8 +31,6 @@ router.get(p.get, async (_: Request, res: Response) => {
  * Add one store.
  */
 router.post(p.add, async (req: Request, res: Response) => {
-    //const { user } = req.body;
-    //const { store } = req.body;
 
     const newStore = { 
         name: req.body.name !== null ? req.body.name : '',
@@ -47,14 +43,6 @@ router.post(p.add, async (req: Request, res: Response) => {
         closed: req.body.closed !== null ? new Date( req.body.closed ) : new Date("2000-00-00T00:00:00"),
     }
 
-    console.log( newStore.open );
-    console.log( newStore.closed );
-    //console.log( store );
-
-    // Check param
-    if (!store) {
-        throw new ParamMissingError();
-    }
     // Fetch data
     await storeService.addOne(newStore);
     return res.status(CREATED).end();

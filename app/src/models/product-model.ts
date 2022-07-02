@@ -3,25 +3,39 @@ export interface IProduct {
     idproduct : number;
     name: string;
     description: string;
+    image: string,
     price: number;
-    productType: number;
+    productType_idproduct_type: number;
     store_idstore: number;
+    productType_store_idstore: number;
 }
 
+/*
+  idproduct: number
+  description: string | null
+  image: string | null
+  name: string | null
+  price: number | null
+  store_idstore: number
+  productType_idproduct_type: number
+  productType_store_idstore: number
+/
 
 /**
  * Get a new Product object.
  * 
  * @returns 
  */
-function getNew( idproduct: number,  name: string, description: string, price: number, productType: number, store_idstore:number ): IProduct {
+function getNew( idproduct: number,  name: string, description: string, image: string, price: number, productType_idproduct_type: number, store_idstore:number, productType_store_idstore:number ): IProduct {
     return {
         idproduct: idproduct,
         name: name,
         description: description,
+        image: image,
         price: price,
-        productType: productType,
-        store_idstore: store_idstore
+        productType_idproduct_type: productType_idproduct_type,
+        store_idstore: store_idstore,
+        productType_store_idstore: productType_store_idstore
     };
 }
 
@@ -37,9 +51,12 @@ function copy(productType: IProduct): IProduct {
         idproduct: productType.idproduct,
         name: productType.name,
         description: productType.description,
+        image: productType.image,
         price: productType.price,
-        productType: productType.productType,
-        store_idstore: productType.store_idstore
+        productType_idproduct_type: productType.productType_idproduct_type,
+        store_idstore: productType.store_idstore,
+        productType_store_idstore: productType.productType_store_idstore,
+        
     }
 }
 

@@ -3,6 +3,15 @@ import productType, { IProductType } from '@models/productType-model ';
 
 const prisma = new PrismaClient();
 
+const add = async function (productTypeAdd:IProductType) 
+{
+    const insert = await prisma.productType.create({ 
+        data: productTypeAdd
+    });
+
+    return insert;
+}
+
 const getAllProductType = async function () : Promise<IProductType[] | null>
 {
     const products = await prisma.productType.findMany();
@@ -41,6 +50,7 @@ const getOneProductType = async function ( id: number ) : Promise<IProductType |
 }
 
 export default {
+    add,
     getAllProductType,
     getOneProductType
 } as const

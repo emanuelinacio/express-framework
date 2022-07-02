@@ -18,8 +18,6 @@ export const p = {
     delete: '/delete/:id',
 } as const;
 
-
-
 /**
  * Get all users.
  */
@@ -31,18 +29,36 @@ router.get(p.get, async (_: Request, res: Response) => {
     return res.status(OK).json({product});
 });
 
-
 /**
- * Add one user.
+ * Add one product.
  */
 router.post(p.add, async (req: Request, res: Response) => {
-    const { user } = req.body;
-    // Check param
-    if (!user) {
-        throw new ParamMissingError();
+
+    const paramStore = req.body.store_idstore !== null ? req.body.store_idstore : 0;
+    const paramProductType = req.body.idproduct_type !== null ? req.body.idproduct_type : 0;
+    const price = req.body.price !== null ? req.body.price : 0;
+
+    const newProduct = { 
+        name: req.body.name !== null ? req.body.name : '',
+        description: req.body.description !== null ? req.body.description : '',
+        image: req.body.image !== null ? req.body.image : '',
+        price: parseInt( price ),
+        store: { 
+            connect:{
+                idstore: parseInt( paramStore )
+            }
+        },
+        productType: { 
+            connect:{
+                idproduct_type: parseInt( paramProductType )
+            }
+        },
     }
+
+    console.log( newProduct );
+
     // Fetch data
-    await productTypeService.addOne(user);
+    await productService.addOne(newProduct);
     return res.status(CREATED).end();
 });
 

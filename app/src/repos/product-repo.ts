@@ -57,16 +57,13 @@ async function getAll(): Promise<IProduct[] | null> {
 
 
 /**
- * Add one user.
+ * Add one product.
  * 
- * @param user 
+ * @param product 
  * @returns 
  */
-async function add(user: IUser): Promise<void> {
-    const db = await orm.openDb();
-    user.idusers = getRandomInt();
-    db.users.push(user);
-    return orm.saveDb(db);
+async function add(product: any) {
+    return await prisma.add( product );
 }
 
 
