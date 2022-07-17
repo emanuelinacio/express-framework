@@ -14,6 +14,7 @@ const { CREATED, OK } = StatusCodes;
 export const p = {
     get: '/all',
     add: '/add',
+    single: '/single/:id',
     update: '/update',
     delete: '/delete/:id',
 } as const;

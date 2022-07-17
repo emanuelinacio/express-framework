@@ -6,7 +6,7 @@ import storeRepo from '@repos/store-repo';
 
 
 /**
- * Get all users.
+ * Get all stores.
  * 
  * @returns 
  */
@@ -14,6 +14,14 @@ function getAll(): Promise<IStore[] | null> {
     return storeRepo.getAll();
 }
 
+/**
+ * Get one store.
+ * 
+ * @returns 
+ */
+ function getOne(id: number): Promise<IStore | null> {
+    return storeRepo.getOne( id );
+}
 
 /**
  * Add one user.
@@ -24,7 +32,6 @@ function getAll(): Promise<IStore[] | null> {
 function addOne(store: any){
     return storeRepo.add(store);
 }
-
 
 /**
  * Update one user.
@@ -40,7 +47,6 @@ async function updateOne(user: IUser): Promise<void> {
     return userRepo.update(user);
 }
 
-
 /**
  * Delete a user by their id.
  * 
@@ -55,10 +61,10 @@ async function deleteOne(id: number): Promise<void> {
     return userRepo.delete(id);
 }
 
-
 // Export default
 export default {
     getAll,
+    getOne,
     addOne,
     updateOne,
     delete: deleteOne,

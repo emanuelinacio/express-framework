@@ -12,6 +12,17 @@ const add = async function (productTypeAdd:IProductType)
     return insert;
 }
 
+const deleteProductType = async function( id: number )
+{
+    const deleteProductTypeID = await prisma.productType.delete({
+        where: {
+            idproduct_type: id,
+        }
+    })
+
+    return deleteProductTypeID.idproduct_type;
+}
+
 const getAllProductType = async function () : Promise<IProductType[] | null>
 {
     const products = await prisma.productType.findMany();
@@ -51,6 +62,7 @@ const getOneProductType = async function ( id: number ) : Promise<IProductType |
 
 export default {
     add,
+    deleteProductType,
     getAllProductType,
     getOneProductType
 } as const

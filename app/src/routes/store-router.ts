@@ -11,12 +11,25 @@ const { CREATED, OK } = StatusCodes;
 // Paths
 export const p = {
     get: '/all',
+    single: '/single/:id',
     add: '/add',
     update: '/update',
     delete: '/delete/:id',
 } as const;
 
-
+/**
+ * Delete one user.
+ */
+ router.get(p.single, async (req: Request, res: Response) => {
+    const { id } = req.params;
+    // Check param
+    if (!id) {
+        throw new ParamMissingError();
+    }
+    // Fetch data
+    const store = await storeService.getOne(Number(id));
+    return res.status(OK).json({store});
+});
 
 /**
  * Get all users.
@@ -77,7 +90,6 @@ router.delete(p.delete, async (req: Request, res: Response) => {
     await userService.delete(Number(id));
     return res.status(OK).end();
 });
-
 
 // Export default
 export default router;

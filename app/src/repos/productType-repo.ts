@@ -90,14 +90,8 @@ async function update(user: IUser): Promise<void> {
  * @param id 
  * @returns 
  */
-async function deleteOne(id: number): Promise<void> {
-    const db = await orm.openDb();
-    for (let i = 0; i < db.users.length; i++) {
-        if (db.users[i].id === id) {
-            db.users.splice(i, 1);
-            return orm.saveDb(db);
-        }
-    }
+async function deleteOne(id: number): Promise<number> {
+    return prisma.deleteProductType( id );
 }
 
 

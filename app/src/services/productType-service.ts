@@ -14,7 +14,6 @@ function getAll(): Promise<IProductType[] | null> {
     return productTypeRepo.getAll();
 }
 
-
 /**
  * Add one productType.
  * 
@@ -25,6 +24,14 @@ function addOne(productType: any) {
     return productTypeRepo.add(productType);
 }
 
+/**
+ * Get one store.
+ * 
+ * @returns 
+ */
+ function getOne(id: number): Promise<IProductType | null> {
+    return productTypeRepo.getOne( id );
+}
 
 /**
  * Update one user.
@@ -40,26 +47,30 @@ async function updateOne(user: IUser): Promise<void> {
     return userRepo.update(user);
 }
 
-
 /**
  * Delete a user by their id.
  * 
  * @param id 
  * @returns 
  */
-async function deleteOne(id: number): Promise<void> {
-    const persists = await userRepo.persists(id);
+async function deleteOne(id: number): Promise<number> {
+
+    const persists = await productTypeRepo.getOne( id );
+
+    console.log( id );
+
     if (!persists) {
         throw new UserNotFoundError();
     }
-    return userRepo.delete(id);
-}
 
+    return productTypeRepo.delete( id );
+}
 
 // Export default
 export default {
     getAll,
     addOne,
+    getOne,
     updateOne,
     delete: deleteOne,
 } as const;

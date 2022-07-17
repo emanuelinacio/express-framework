@@ -3,37 +3,105 @@ import StatusCodes from 'http-status-codes';
 import { SuperTest, Test, Response } from 'supertest';
 
 import app from '@server';
-import userRepo from '@repos/user-repo';
-import User, { IUser } from '@models/user-model';
-import { pErr } from '@shared/functions';
+import productTypeModel, { IProductType } from '@models/productType-model ';
+import { getRandomInt, pErr } from '@shared/functions';
 import { p as productTypePaths } from '@routes/productType-router';
 import { ParamMissingError, UserNotFoundError } from '@shared/errors';
+import { randomInt } from 'crypto';
 
 type TReqBody = string | object | undefined;
+let agent: SuperTest<Test>;
+const productType = '/api/product-types';
+const getProductTypePath = `${productType}${productTypePaths.get}`;
+const getProductTypePathSingle = `${productType}${productTypePaths.single}`;
+const postProductTypePathAdd = `${productType}${productTypePaths.add}`;
+const deleteProductTypePath = `${productType}${productTypePaths.delete}`;
 
-describe('product-type-router', () => {
+beforeAll((done) => {
+    agent = supertest.agent(app);
+    done();
+});
 
-    const productTypePath = '/api/product-type';
-    const getProductTypePath = `${productTypePath}${productTypePaths.get}`;
+var insertProductType:IProductType;
 
-    const { BAD_REQUEST, CREATED, OK } = StatusCodes;
-    let agent: SuperTest<Test>;
+//GET
+describe('product-type GET', () => {    
 
-    beforeAll((done) => {
-        agent = supertest.agent(app);
-        done();
+    //GET ALL
+    it(`test Product Type GET:${getProductTypePath}`, (done) => {
+
+        agent.get(getProductTypePath)
+        .end((err: Error, res: Response) => {
+            pErr(err);
+            //console.log(res.body)
+            expect(res.status).toBe(200);
+            
+            const resProductType = res.body.productType;
+            const retProductTypes: IProductType[] = resProductType.map((productType: IProductType) => {
+                return productTypeModel.copy( productType );
+            });
+            expect(retProductTypes).toEqual(resProductType);
+            done();
+        });
     });
 
-    describe(`"GET:${getProductTypePath}"`, () => {
+    //GET ONE
+    it(`test Product Type GET:${getProductTypePathSingle}`, (done) => {
 
-        it('should be true', (done) => {
-            // Setup Spy
-            const test_true = true;
-    
-            expect(test_true).toBe(true);
-            //expect(res.body.error).toBeUndefined();
+        agent.get( getProductTypePath + '/?idproduct_type=1' )
+        .end((err: Error, res: Response) => {
+            pErr(err)
+            //console.log(res.body)
+            expect( res.status ).toBe(200);
+
+            const resProductType = res.body.productType;
+            const retProductType: IProductType[] = resProductType.map((productType: IProductType) => {
+                return productTypeModel.copy( productType );
+            });
+
+            expect( retProductType[0] ).toEqual( resProductType[0] );
+            done();
         });
+    });
 
-    } );
+});
 
-} );
+//POST
+describe('product-type POST', () => {
+
+    const newProductType = {
+        name: 'product Type Test' + getRandomInt(),
+        store_idstore: 5
+    }
+
+    //CREATE
+    it(`test productType POST:${postProductTypePathAdd}`, (done) => {
+
+        agent.post( postProductTypePathAdd ).type('form').send(newProductType)
+        .end((err: Error, res: Response) => {
+            pErr(err)
+            //console.log( res.body )
+            expect( res.status ).toBe(201);
+
+            insertProductType = productTypeModel.copy( res.body.addProductType );
+
+            expect( newProductType.name ).toEqual( insertProductType.name );       
+            done();
+        });
+    });
+
+    //DELETE
+    it(`test delete productType DELETE:${deleteProductTypePath}`, (done) => {
+
+        agent.delete( deleteProductTypePath.replace(':id', insertProductType.idproduct_type.toString() ) )
+        .end((err: Error, res: Response) => {
+            pErr(err)
+            //console.log( res.body )
+
+            expect( res.status ).toBe(200);
+            expect( res.body.deleteProductType ).toEqual( insertProductType.idproduct_type );
+            done();
+        });
+    });    
+
+});

@@ -12,11 +12,11 @@ const { CREATED, OK } = StatusCodes;
 // Paths
 export const p = {
     get: '/all',
+    single: '/single/:id',
     add: '/add',
     update: '/update',
     delete: '/delete/:id',
 } as const;
-
 
 
 /**
@@ -26,6 +26,20 @@ router.get(p.get, async (_: Request, res: Response) => {
 
     const productType = await productTypeService.getAll();
     return res.status(OK).json({productType});
+});
+
+/*
+* Get one Product Type
+*/
+router.get(p.single, async (req: Request, res: Response) => {
+    const { id } = req.params;
+    // Check param
+    if (!id) {
+        throw new ParamMissingError();
+    }
+    // Fetch data
+    const store = await productTypeService.getOne(Number(id));
+    return res.status(OK).json({store});
 });
 
 
@@ -44,9 +58,11 @@ router.post(p.add, async (req: Request, res: Response) => {
         },
     }
 
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "POST");
     // Fetch data
-    await productTypeService.addOne(productType);
-    return res.status(CREATED).end();
+    const addProductType = await productTypeService.addOne(productType);
+    return res.status(CREATED).json({addProductType});
 });
 
 
@@ -75,10 +91,9 @@ router.delete(p.delete, async (req: Request, res: Response) => {
         throw new ParamMissingError();
     }
     // Fetch data
-    await productTypeService.delete(Number(id));
-    return res.status(OK).end();
+    const deleteProductType = await productTypeService.delete(Number(id));
+    return res.status(OK).json({deleteProductType});
 });
-
 
 // Export default
 export default router;
